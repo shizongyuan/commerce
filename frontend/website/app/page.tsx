@@ -8,9 +8,9 @@ import { useProducts } from "@/hooks/use-products";
 import { AnimatedSection, FloatingOrb, MagneticWrapper } from "@/components/animated-section";
 
 const agents = [
-  { id: "xiaoxue", name: "小雪", avatar: "/images/agents/ai_xiaoxue.png", specialty: "产品咨询 | 订单查询" },
-  { id: "xiaobing", name: "小冰", avatar: "/images/agents/ai_xiaobing.png", specialty: "物流跟踪 | 售后服务" },
-  { id: "xiaoyu", name: "小雨", avatar: "/images/agents/ai_xiaoyu.png", specialty: "投诉建议 | 优惠活动" },
+  { id: "xiaoxue", name: "小雪", avatar: "/images/agents/ai_xiaoxue.webp", specialty: "产品咨询 | 订单查询" },
+  { id: "xiaobing", name: "小冰", avatar: "/images/agents/ai_xiaobing.webp", specialty: "物流跟踪 | 售后服务" },
+  { id: "xiaoyu", name: "小雨", avatar: "/images/agents/ai_xiaoyu.webp", specialty: "投诉建议 | 优惠活动" },
 ];
 
 const navItems = [

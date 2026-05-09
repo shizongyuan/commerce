@@ -5,7 +5,7 @@
       "code": "AI-XIAOXUE",
       "name": "小雪",
       "role": "智能客服专员",
-      "avatar": "/images/agents/ai_xiaoxue.png",
+      "avatar": "/images/agents/ai_xiaoxue.webp",
       "knowledge_files": [
         "products/skincare.md",
         "products/faq.md",
@@ -24,7 +24,7 @@
       "code": "AI-XIAOBING",
       "name": "小冰",
       "role": "物流售后专员",
-      "avatar": "/images/agents/ai_xiaobing.png",
+      "avatar": "/images/agents/ai_xiaobing.webp",
       "knowledge_files": [
         "operations/shipping.md",
         "operations/refund_policy.md"
@@ -41,7 +41,7 @@
       "code": "AI-XIAOYU",
       "name": "小雨",
       "role": "投诉建议专员",
-      "avatar": "/images/agents/ai_xiaoyu.png",
+      "avatar": "/images/agents/ai_xiaoyu.webp",
       "knowledge_files": [
         "enterprise/contact.md",
         "enterprise/brand.md"
@@ -58,7 +58,7 @@
       "code": "AI-XIAOHONGSHU",
       "name": "小红",
       "role": "美妆护肤顾问",
-      "avatar": "/images/agents/ai_xiaohongshu.png",
+      "avatar": "/images/agents/ai_xiaohongshu.webp",
       "knowledge_files": [
         "products/skincare.md",
         "products/faq.md",

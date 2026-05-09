@@ -20,9 +20,9 @@ interface Message {
 }
 
 const DEFAULT_AGENTS = [
-  { id: "xiaoxue", name: "小雪", avatar: "/images/agents/ai_xiaoxue.png", greeting: "您好！我是小雪，您的专属客服。" },
-  { id: "xiaobing", name: "小冰", avatar: "/images/agents/ai_xiaobing.png", greeting: "您好！我是小冰，负责物流和售后。" },
-  { id: "xiaoyu", name: "小雨", avatar: "/images/agents/ai_xiaoyu.png", greeting: "您好！我是小雨，负责投诉建议和优惠活动。" },
+  { id: "xiaoxue", name: "小雪", avatar: "/images/agents/ai_xiaoxue.webp", greeting: "您好！我是小雪，您的专属客服。" },
+  { id: "xiaobing", name: "小冰", avatar: "/images/agents/ai_xiaobing.webp", greeting: "您好！我是小冰，负责物流和售后。" },
+  { id: "xiaoyu", name: "小雨", avatar: "/images/agents/ai_xiaoyu.webp", greeting: "您好！我是小雨，负责投诉建议和优惠活动。" },
 ];
 
 const quickActions = [

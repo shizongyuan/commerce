@@ -82,7 +82,7 @@ export function ChatWidget({ defaultOpen = false }: ChatWidgetProps) {
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 w-14 h-14 bg-hermes-orange text-white rounded-full shadow-lg hover:bg-hermes-orange-light transition-colors flex items-center justify-center z-50 overflow-hidden"
       >
-        <Image src="/images/agents/ai_xiaoxue.png" alt="AI小雪" width={56} height={56} className="w-full h-full object-cover" />
+        <Image src="/images/agents/ai_xiaoxue.webp" alt="AI小雪" width={56} height={56} className="w-full h-full object-cover" />
       </button>
     );
   }
@@ -94,7 +94,7 @@ export function ChatWidget({ defaultOpen = false }: ChatWidgetProps) {
         className="fixed bottom-6 right-6 bg-hermes-orange text-white rounded-full shadow-lg hover:bg-hermes-orange-light transition-colors z-50 flex items-center gap-2 px-3 py-2"
       >
         <div className="w-7 h-7 rounded-full overflow-hidden">
-          <Image src="/images/agents/ai_xiaoxue.png" alt="AI小雪" width={28} height={28} className="w-full h-full object-cover" />
+          <Image src="/images/agents/ai_xiaoxue.webp" alt="AI小雪" width={28} height={28} className="w-full h-full object-cover" />
         </div>
         <span className="text-sm font-medium">AI-小雪</span>
         <Minimize2 className="w-4 h-4" />
@@ -108,7 +108,7 @@ export function ChatWidget({ defaultOpen = false }: ChatWidgetProps) {
       <div className="flex items-center justify-between px-4 py-3 bg-hermes-orange text-white">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-full overflow-hidden shadow-md">
-            <Image src="/images/agents/ai_xiaoxue.png" alt="AI小雪" width={36} height={36} className="w-full h-full object-cover" />
+            <Image src="/images/agents/ai_xiaoxue.webp" alt="AI小雪" width={36} height={36} className="w-full h-full object-cover" />
           </div>
           <div>
             <div className="text-sm font-medium">AI-小雪</div>
