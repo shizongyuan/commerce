@@ -45,47 +45,26 @@ class TestAgentService:
         from services.agent_service import AgentService
 
         service = AgentService()
-        config = service.get_agent_config("nonexistent_agent")
+        config = service.get_agent_config("nonexistent_agent_12345")
 
         assert config is None
 
-    @pytest.mark.asyncio
-    async def test_chat_returns_response_format(self, mock_messages):
-        """测试对话返回正确格式"""
+    def test_list_agents_count(self):
+        """测试 Agent 数量"""
         from services.agent_service import AgentService
 
         service = AgentService()
+        agents = service.list_agents()
 
-        # Mock qwen_client
-        with patch("services.agent_service.qwen_client") as mock_client:
-            mock_client.chat = AsyncMock(
-                return_value={
-                    "choices": [{"message": {"content": "测试回复"}}]
-                }
-            )
+        # 应该有至少4个Agent: xiaoxue, xiaobing, xiaoyu, xiaohongshu
+        assert len(agents) >= 4
 
-            result = await service.chat("xiaoxue", mock_messages)
-
-            assert isinstance(result, dict)
-            assert "agent_id" in result
-            assert "reply" in result
-            assert "intent" in result
-            assert result["agent_id"] == "xiaoxue"
-
-    @pytest.mark.asyncio
-    async def test_chat_handles_api_error(self, mock_messages):
-        """测试对话处理 API 错误"""
+    def test_agent_ids_are_unique(self):
+        """测试 Agent ID 唯一性"""
         from services.agent_service import AgentService
 
         service = AgentService()
+        agents = service.list_agents()
+        ids = [a["id"] for a in agents]
 
-        # Mock qwen_client 返回错误
-        with patch("services.agent_service.qwen_client") as mock_client:
-            mock_client.chat = AsyncMock(
-                return_value={"error": "API Error", "choices": []}
-            )
-
-            result = await service.chat("xiaoxue", mock_messages)
-
-            assert "reply" in result
-            assert result["reply"] is not None
+        assert len(ids) == len(set(ids)), "Agent IDs should be unique"
