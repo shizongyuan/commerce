@@ -1,6 +1,6 @@
-# 企业 AI 管理平台
+# 焕美严选 AI 运营管理平台
 
-> Enterprise AI Management Platform for E-commerce
+> Huanmei Yanxuan AI Operations Management Platform
 
 电商企业一站式 AI 智能化管理平台，实现 AI 驱动的企业官网、数据洞察和 AI 员工矩阵。
 

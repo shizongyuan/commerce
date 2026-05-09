@@ -4,7 +4,7 @@ This file provides guidance to WorkBuddy AI when working with code in this repos
 
 ## 项目概述
 
-企业 AI 管理平台：电商一站式 AI 智能化管理，包含 AI 官网（销售+对话）、管理后台（数据洞察+运营）和 AI 员工矩阵。
+焕美严选 AI 运营管理平台：电商一站式 AI 智能化管理，包含 AI 官网（销售+对话）、管理后台（数据洞察+运营）和 AI 员工矩阵。
 
 ### 技术栈
 
