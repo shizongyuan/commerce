@@ -1,0 +1,742 @@
+[
+  {
+    "review_id": "REV-9B64E74E",
+    "asin": "B09N5ZND232",
+    "rating": 1,
+    "title": "Poor quality",
+    "body": "Not as described. Would not recommend.",
+    "verified_purchase": true,
+    "review_date": "2026-04-30T12:36:58.909292",
+    "helpful_count": 35
+  },
+  {
+    "review_id": "REV-A3E5C694",
+    "asin": "B09N5ZNA820",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": true,
+    "review_date": "2026-04-30T12:36:58.908288",
+    "helpful_count": 32
+  },
+  {
+    "review_id": "REV-D5AFC053",
+    "asin": "B09N5ZNA820",
+    "rating": 1,
+    "title": "Poor quality",
+    "body": "Not as described. Would not recommend.",
+    "verified_purchase": false,
+    "review_date": "2026-04-29T12:36:58.908288",
+    "helpful_count": 5
+  },
+  {
+    "review_id": "REV-01DD1884",
+    "asin": "B09N5ZNC445",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": true,
+    "review_date": "2026-04-27T12:36:58.911287",
+    "helpful_count": 40
+  },
+  {
+    "review_id": "REV-B5E421D7",
+    "asin": "B09N5ZNB251",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": true,
+    "review_date": "2026-04-24T12:36:58.908288",
+    "helpful_count": 1
+  },
+  {
+    "review_id": "REV-95AF9FCF",
+    "asin": "B09N5ZND796",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": false,
+    "review_date": "2026-04-20T12:36:58.913286",
+    "helpful_count": 27
+  },
+  {
+    "review_id": "REV-837A14CE",
+    "asin": "B09N5ZNB504",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-04-18T12:36:58.911287",
+    "helpful_count": 17
+  },
+  {
+    "review_id": "REV-6DF316B2",
+    "asin": "B09N5ZNA134",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-04-17T12:36:58.912287",
+    "helpful_count": 22
+  },
+  {
+    "review_id": "REV-AC88D017",
+    "asin": "B09N5ZNB145",
+    "rating": 5,
+    "title": "Great value for money",
+    "body": "Better than expected. Will buy again.",
+    "verified_purchase": false,
+    "review_date": "2026-04-15T12:36:58.913286",
+    "helpful_count": 30
+  },
+  {
+    "review_id": "REV-D30CF853",
+    "asin": "B09N5ZND524",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": true,
+    "review_date": "2026-04-12T12:36:58.910286",
+    "helpful_count": 2
+  },
+  {
+    "review_id": "REV-58ECA579",
+    "asin": "B09N5ZND796",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": false,
+    "review_date": "2026-04-11T12:36:58.913286",
+    "helpful_count": 24
+  },
+  {
+    "review_id": "REV-DD4EB03A",
+    "asin": "B09N5ZND417",
+    "rating": 4,
+    "title": "Fast delivery",
+    "body": "Arrived quickly. Product looks nice.",
+    "verified_purchase": true,
+    "review_date": "2026-04-11T12:36:58.912287",
+    "helpful_count": 33
+  },
+  {
+    "review_id": "REV-58F4DC12",
+    "asin": "B09N5ZNB504",
+    "rating": 2,
+    "title": "Not impressed",
+    "body": "Quality could be better. Disappointed.",
+    "verified_purchase": true,
+    "review_date": "2026-04-10T12:36:58.911287",
+    "helpful_count": 42
+  },
+  {
+    "review_id": "REV-157DB0AF",
+    "asin": "B09N5ZNA820",
+    "rating": 5,
+    "title": "Excellent product!",
+    "body": "Very satisfied with the quality. Highly recommended!",
+    "verified_purchase": true,
+    "review_date": "2026-04-09T12:36:58.908288",
+    "helpful_count": 13
+  },
+  {
+    "review_id": "REV-6C83D316",
+    "asin": "B09N5ZNC408",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": false,
+    "review_date": "2026-04-08T12:36:58.913286",
+    "helpful_count": 26
+  },
+  {
+    "review_id": "REV-CBEBE641",
+    "asin": "B09N5ZND796",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": true,
+    "review_date": "2026-04-08T12:36:58.913286",
+    "helpful_count": 21
+  },
+  {
+    "review_id": "REV-AFD80651",
+    "asin": "B09N5ZNC538",
+    "rating": 4,
+    "title": "Fast delivery",
+    "body": "Arrived quickly. Product looks nice.",
+    "verified_purchase": true,
+    "review_date": "2026-04-08T12:36:58.909292",
+    "helpful_count": 30
+  },
+  {
+    "review_id": "REV-9431FEB0",
+    "asin": "B09N5ZNB504",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-04-06T12:36:58.911287",
+    "helpful_count": 49
+  },
+  {
+    "review_id": "REV-40E40B2C",
+    "asin": "B09N5ZNB251",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": true,
+    "review_date": "2026-04-06T12:36:58.908288",
+    "helpful_count": 28
+  },
+  {
+    "review_id": "REV-05F1F9E1",
+    "asin": "B09N5ZNB672",
+    "rating": 5,
+    "title": "Excellent product!",
+    "body": "Very satisfied with the quality. Highly recommended!",
+    "verified_purchase": true,
+    "review_date": "2026-04-03T12:36:58.910286",
+    "helpful_count": 18
+  },
+  {
+    "review_id": "REV-8D36F5C3",
+    "asin": "B09N5ZNB672",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-04-03T12:36:58.910286",
+    "helpful_count": 8
+  },
+  {
+    "review_id": "REV-7A693F18",
+    "asin": "B09N5ZNA565",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": true,
+    "review_date": "2026-04-03T12:36:58.909292",
+    "helpful_count": 26
+  },
+  {
+    "review_id": "REV-177E2353",
+    "asin": "B09N5ZND417",
+    "rating": 2,
+    "title": "Not impressed",
+    "body": "Quality could be better. Disappointed.",
+    "verified_purchase": true,
+    "review_date": "2026-03-29T12:36:58.912287",
+    "helpful_count": 13
+  },
+  {
+    "review_id": "REV-E73AD133",
+    "asin": "B09N5ZNB504",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": true,
+    "review_date": "2026-03-29T12:36:58.911287",
+    "helpful_count": 4
+  },
+  {
+    "review_id": "REV-AFC7832C",
+    "asin": "B09N5ZNB672",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": false,
+    "review_date": "2026-03-28T12:36:58.910286",
+    "helpful_count": 29
+  },
+  {
+    "review_id": "REV-0A9E8E25",
+    "asin": "B09N5ZNC114",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-03-26T12:36:58.910286",
+    "helpful_count": 4
+  },
+  {
+    "review_id": "REV-047DF22F",
+    "asin": "B09N5ZND417",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": true,
+    "review_date": "2026-03-25T12:36:58.912287",
+    "helpful_count": 6
+  },
+  {
+    "review_id": "REV-3DA4BDEA",
+    "asin": "B09N5ZNC538",
+    "rating": 3,
+    "title": "Decent product",
+    "body": "Basic functionality. Expected a bit more for the price.",
+    "verified_purchase": false,
+    "review_date": "2026-03-23T12:36:58.909292",
+    "helpful_count": 20
+  },
+  {
+    "review_id": "REV-0F7A54DC",
+    "asin": "B09N5ZNB672",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": true,
+    "review_date": "2026-03-22T12:36:58.910286",
+    "helpful_count": 18
+  },
+  {
+    "review_id": "REV-9BC80FA8",
+    "asin": "B09N5ZNC538",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": false,
+    "review_date": "2026-03-19T12:36:58.909292",
+    "helpful_count": 0
+  },
+  {
+    "review_id": "REV-54918BE4",
+    "asin": "B09N5ZNB251",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": true,
+    "review_date": "2026-03-19T12:36:58.908288",
+    "helpful_count": 7
+  },
+  {
+    "review_id": "REV-38FC8E2D",
+    "asin": "B09N5ZND796",
+    "rating": 5,
+    "title": "Great value for money",
+    "body": "Better than expected. Will buy again.",
+    "verified_purchase": true,
+    "review_date": "2026-03-16T12:36:58.913286",
+    "helpful_count": 19
+  },
+  {
+    "review_id": "REV-FC32C219",
+    "asin": "B09N5ZNA134",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-03-14T12:36:58.912287",
+    "helpful_count": 4
+  },
+  {
+    "review_id": "REV-391132A4",
+    "asin": "B09N5ZNC538",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": true,
+    "review_date": "2026-03-14T12:36:58.909292",
+    "helpful_count": 48
+  },
+  {
+    "review_id": "REV-A73A4A0A",
+    "asin": "B09N5ZNA820",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": true,
+    "review_date": "2026-03-14T12:36:58.908288",
+    "helpful_count": 28
+  },
+  {
+    "review_id": "REV-364F1E13",
+    "asin": "B09N5ZNC114",
+    "rating": 5,
+    "title": "Great value for money",
+    "body": "Better than expected. Will buy again.",
+    "verified_purchase": false,
+    "review_date": "2026-03-11T12:36:58.910286",
+    "helpful_count": 45
+  },
+  {
+    "review_id": "REV-2587AB4D",
+    "asin": "B09N5ZNA820",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": false,
+    "review_date": "2026-03-11T12:36:58.908288",
+    "helpful_count": 4
+  },
+  {
+    "review_id": "REV-865A8B21",
+    "asin": "B09N5ZNC445",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": false,
+    "review_date": "2026-03-08T12:36:58.911287",
+    "helpful_count": 48
+  },
+  {
+    "review_id": "REV-AB3562A9",
+    "asin": "B09N5ZNB251",
+    "rating": 1,
+    "title": "Poor quality",
+    "body": "Not as described. Would not recommend.",
+    "verified_purchase": true,
+    "review_date": "2026-03-08T12:36:58.908288",
+    "helpful_count": 49
+  },
+  {
+    "review_id": "REV-E0BA9724",
+    "asin": "B09N5ZNA134",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": true,
+    "review_date": "2026-03-07T12:36:58.912287",
+    "helpful_count": 26
+  },
+  {
+    "review_id": "REV-9254466B",
+    "asin": "B09N5ZNB504",
+    "rating": 4,
+    "title": "Fast delivery",
+    "body": "Arrived quickly. Product looks nice.",
+    "verified_purchase": false,
+    "review_date": "2026-03-07T12:36:58.911287",
+    "helpful_count": 50
+  },
+  {
+    "review_id": "REV-A763901A",
+    "asin": "B09N5ZNC538",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-03-07T12:36:58.909292",
+    "helpful_count": 4
+  },
+  {
+    "review_id": "REV-2480C2FB",
+    "asin": "B09N5ZNC408",
+    "rating": 2,
+    "title": "Not impressed",
+    "body": "Quality could be better. Disappointed.",
+    "verified_purchase": false,
+    "review_date": "2026-03-05T12:36:58.913286",
+    "helpful_count": 0
+  },
+  {
+    "review_id": "REV-BA1625DB",
+    "asin": "B09N5ZNB672",
+    "rating": 2,
+    "title": "Not impressed",
+    "body": "Quality could be better. Disappointed.",
+    "verified_purchase": true,
+    "review_date": "2026-03-04T12:36:58.910286",
+    "helpful_count": 7
+  },
+  {
+    "review_id": "REV-76967BD1",
+    "asin": "B09N5ZNB251",
+    "rating": 1,
+    "title": "Poor quality",
+    "body": "Not as described. Would not recommend.",
+    "verified_purchase": false,
+    "review_date": "2026-03-04T12:36:58.908288",
+    "helpful_count": 13
+  },
+  {
+    "review_id": "REV-D065A27E",
+    "asin": "B09N5ZNA565",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-03-03T12:36:58.909292",
+    "helpful_count": 13
+  },
+  {
+    "review_id": "REV-2F17D525",
+    "asin": "B09N5ZND417",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": true,
+    "review_date": "2026-03-01T12:36:58.912287",
+    "helpful_count": 47
+  },
+  {
+    "review_id": "REV-1DD664AE",
+    "asin": "B09N5ZNB504",
+    "rating": 5,
+    "title": "Excellent product!",
+    "body": "Very satisfied with the quality. Highly recommended!",
+    "verified_purchase": true,
+    "review_date": "2026-03-01T12:36:58.911287",
+    "helpful_count": 20
+  },
+  {
+    "review_id": "REV-DBE62D6A",
+    "asin": "B09N5ZNB672",
+    "rating": 2,
+    "title": "Not impressed",
+    "body": "Quality could be better. Disappointed.",
+    "verified_purchase": true,
+    "review_date": "2026-03-01T12:36:58.910286",
+    "helpful_count": 17
+  },
+  {
+    "review_id": "REV-AD889FE3",
+    "asin": "B09N5ZNA526",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": true,
+    "review_date": "2026-02-28T12:36:58.911287",
+    "helpful_count": 49
+  },
+  {
+    "review_id": "REV-A04420C2",
+    "asin": "B09N5ZNA134",
+    "rating": 5,
+    "title": "Excellent product!",
+    "body": "Very satisfied with the quality. Highly recommended!",
+    "verified_purchase": true,
+    "review_date": "2026-02-27T12:36:58.912287",
+    "helpful_count": 7
+  },
+  {
+    "review_id": "REV-B39878B5",
+    "asin": "B09N5ZNA820",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-02-27T12:36:58.908288",
+    "helpful_count": 7
+  },
+  {
+    "review_id": "REV-73468D3D",
+    "asin": "B09N5ZNB251",
+    "rating": 5,
+    "title": "Excellent product!",
+    "body": "Very satisfied with the quality. Highly recommended!",
+    "verified_purchase": true,
+    "review_date": "2026-02-26T12:36:58.908288",
+    "helpful_count": 26
+  },
+  {
+    "review_id": "REV-B0ACA44B",
+    "asin": "B09N5ZNC408",
+    "rating": 1,
+    "title": "Poor quality",
+    "body": "Not as described. Would not recommend.",
+    "verified_purchase": true,
+    "review_date": "2026-02-22T12:36:58.913286",
+    "helpful_count": 48
+  },
+  {
+    "review_id": "REV-DFFE761C",
+    "asin": "B09N5ZND417",
+    "rating": 4,
+    "title": "Fast delivery",
+    "body": "Arrived quickly. Product looks nice.",
+    "verified_purchase": true,
+    "review_date": "2026-02-22T12:36:58.912287",
+    "helpful_count": 14
+  },
+  {
+    "review_id": "REV-566F16FD",
+    "asin": "B09N5ZNB251",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": true,
+    "review_date": "2026-02-20T12:36:58.908288",
+    "helpful_count": 10
+  },
+  {
+    "review_id": "REV-D9920B62",
+    "asin": "B09N5ZND796",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": true,
+    "review_date": "2026-02-19T12:36:58.913286",
+    "helpful_count": 28
+  },
+  {
+    "review_id": "REV-B6AA5436",
+    "asin": "B09N5ZND417",
+    "rating": 5,
+    "title": "Exceeded expectations",
+    "body": "Amazing quality! Will definitely order again.",
+    "verified_purchase": true,
+    "review_date": "2026-02-19T12:36:58.912287",
+    "helpful_count": 46
+  },
+  {
+    "review_id": "REV-E0ADC85E",
+    "asin": "B09N5ZND417",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-02-18T12:36:58.912287",
+    "helpful_count": 15
+  },
+  {
+    "review_id": "REV-E3633D05",
+    "asin": "B09N5ZND524",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": true,
+    "review_date": "2026-02-18T12:36:58.910286",
+    "helpful_count": 9
+  },
+  {
+    "review_id": "REV-E0B4BA1C",
+    "asin": "B09N5ZNC445",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-02-17T12:36:58.911287",
+    "helpful_count": 26
+  },
+  {
+    "review_id": "REV-D6D77628",
+    "asin": "B09N5ZNC408",
+    "rating": 5,
+    "title": "Great value for money",
+    "body": "Better than expected. Will buy again.",
+    "verified_purchase": true,
+    "review_date": "2026-02-15T12:36:58.913286",
+    "helpful_count": 2
+  },
+  {
+    "review_id": "REV-D72D63F8",
+    "asin": "B09N5ZND417",
+    "rating": 4,
+    "title": "Fast delivery",
+    "body": "Arrived quickly. Product looks nice.",
+    "verified_purchase": true,
+    "review_date": "2026-02-15T12:36:58.912287",
+    "helpful_count": 1
+  },
+  {
+    "review_id": "REV-667E9526",
+    "asin": "B09N5ZNA526",
+    "rating": 5,
+    "title": "Perfect gift",
+    "body": "Bought this as a gift and they loved it!",
+    "verified_purchase": false,
+    "review_date": "2026-02-15T12:36:58.911287",
+    "helpful_count": 5
+  },
+  {
+    "review_id": "REV-FAD0C11A",
+    "asin": "B09N5ZNA565",
+    "rating": 3,
+    "title": "Decent product",
+    "body": "Basic functionality. Expected a bit more for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-02-13T12:36:58.909292",
+    "helpful_count": 3
+  },
+  {
+    "review_id": "REV-20D32466",
+    "asin": "B09N5ZNC408",
+    "rating": 4,
+    "title": "Good product",
+    "body": "Overall satisfied. Good quality for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-02-12T12:36:58.913286",
+    "helpful_count": 0
+  },
+  {
+    "review_id": "REV-E0A9CE6C",
+    "asin": "B09N5ZNA820",
+    "rating": 2,
+    "title": "Not impressed",
+    "body": "Quality could be better. Disappointed.",
+    "verified_purchase": false,
+    "review_date": "2026-02-11T12:36:58.908288",
+    "helpful_count": 28
+  },
+  {
+    "review_id": "REV-F7794066",
+    "asin": "B09N5ZNB251",
+    "rating": 3,
+    "title": "Average",
+    "body": "It's okay, but there are better options out there.",
+    "verified_purchase": false,
+    "review_date": "2026-02-10T12:36:58.908288",
+    "helpful_count": 46
+  },
+  {
+    "review_id": "REV-27C96DA2",
+    "asin": "B09N5ZNC408",
+    "rating": 3,
+    "title": "Decent product",
+    "body": "Basic functionality. Expected a bit more for the price.",
+    "verified_purchase": false,
+    "review_date": "2026-02-06T12:36:58.913286",
+    "helpful_count": 7
+  },
+  {
+    "review_id": "REV-22710492",
+    "asin": "B09N5ZNC408",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-02-03T12:36:58.913286",
+    "helpful_count": 32
+  },
+  {
+    "review_id": "REV-5CF3F98A",
+    "asin": "B09N5ZNB504",
+    "rating": 5,
+    "title": "Excellent product!",
+    "body": "Very satisfied with the quality. Highly recommended!",
+    "verified_purchase": true,
+    "review_date": "2026-02-03T12:36:58.911287",
+    "helpful_count": 10
+  },
+  {
+    "review_id": "REV-A3C39C38",
+    "asin": "B09N5ZNA565",
+    "rating": 4,
+    "title": "Nice purchase",
+    "body": "Works well. Delivery was fast too.",
+    "verified_purchase": false,
+    "review_date": "2026-02-03T12:36:58.909292",
+    "helpful_count": 0
+  },
+  {
+    "review_id": "REV-3A526E02",
+    "asin": "B09N5ZNA134",
+    "rating": 3,
+    "title": "Decent product",
+    "body": "Basic functionality. Expected a bit more for the price.",
+    "verified_purchase": true,
+    "review_date": "2026-02-02T12:36:58.912287",
+    "helpful_count": 29
+  },
+  {
+    "review_id": "REV-A127C8C6",
+    "asin": "B09N5ZNC408",
+    "rating": 4,
+    "title": "Pretty good",
+    "body": "Does what it says. Good purchase.",
+    "verified_purchase": true,
+    "review_date": "2026-02-01T12:36:58.913286",
+    "helpful_count": 40
+  }
+]

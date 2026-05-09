@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+.env.local
+.venv
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Node
+node_modules/
+.npm
+.yarn
+
+# Next.js
+frontend/admin/.next/
+frontend/website/.next/
+frontend/admin/out/
+frontend/website/out/
+.cache/
+
+# Frontend lock files (keep package.json, remove if you want yarn/pnpm only)
+frontend/admin/package-lock.json
+frontend/website/package-lock.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+
+# Secrets
+*.pem
+*.key
+credentials.json
+
+# Build artifacts
+frontend/admin/tsconfig.tsbuildinfo
+frontend/website/tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# AI agent generated reports
+项目全面检查报告.md
+
+# Local AI config
+.workbuddy/

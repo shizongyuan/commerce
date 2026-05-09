@@ -1,0 +1,162 @@
+[
+  {
+    "asin": "B09N5ZNA820",
+    "product_name": "Premium Skincare Set",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 99,
+    "inbound_quantity": 24,
+    "outbound_quantity": 35,
+    "reserved_quantity": 19,
+    "available_quantity": 75
+  },
+  {
+    "asin": "B09N5ZNB251",
+    "product_name": "Vitamin C Serum",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 205,
+    "inbound_quantity": 82,
+    "outbound_quantity": 49,
+    "reserved_quantity": 11,
+    "available_quantity": 204
+  },
+  {
+    "asin": "B09N5ZNC538",
+    "product_name": "Moisturizing Cream",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 58,
+    "inbound_quantity": 68,
+    "outbound_quantity": 18,
+    "reserved_quantity": 18,
+    "available_quantity": 34
+  },
+  {
+    "asin": "B09N5ZND232",
+    "product_name": "Anti-Aging Cream",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 467,
+    "inbound_quantity": 2,
+    "outbound_quantity": 39,
+    "reserved_quantity": 15,
+    "available_quantity": 464
+  },
+  {
+    "asin": "B09N5ZNA565",
+    "product_name": "Luxury Makeup Palette",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 59,
+    "inbound_quantity": 13,
+    "outbound_quantity": 7,
+    "reserved_quantity": 11,
+    "available_quantity": 52
+  },
+  {
+    "asin": "B09N5ZNB672",
+    "product_name": "Lipstick Collection",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 217,
+    "inbound_quantity": 2,
+    "outbound_quantity": 46,
+    "reserved_quantity": 10,
+    "available_quantity": 190
+  },
+  {
+    "asin": "B09N5ZNC114",
+    "product_name": "Foundation SPF20",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 465,
+    "inbound_quantity": 23,
+    "outbound_quantity": 6,
+    "reserved_quantity": 6,
+    "available_quantity": 435
+  },
+  {
+    "asin": "B09N5ZND524",
+    "product_name": "Eyeshadow Palette",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 390,
+    "inbound_quantity": 100,
+    "outbound_quantity": 10,
+    "reserved_quantity": 7,
+    "available_quantity": 390
+  },
+  {
+    "asin": "B09N5ZNA526",
+    "product_name": "Wireless Earbuds Pro",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 20,
+    "inbound_quantity": 34,
+    "outbound_quantity": 10,
+    "reserved_quantity": 20,
+    "available_quantity": 18
+  },
+  {
+    "asin": "B09N5ZNB504",
+    "product_name": "Bluetooth Speaker",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 41,
+    "inbound_quantity": 44,
+    "outbound_quantity": 34,
+    "reserved_quantity": 20,
+    "available_quantity": 19
+  },
+  {
+    "asin": "B09N5ZNC445",
+    "product_name": "Smart Watch",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 163,
+    "inbound_quantity": 58,
+    "outbound_quantity": 21,
+    "reserved_quantity": 9,
+    "available_quantity": 142
+  },
+  {
+    "asin": "B09N5ZND417",
+    "product_name": "USB-C Hub",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 434,
+    "inbound_quantity": 70,
+    "outbound_quantity": 27,
+    "reserved_quantity": 9,
+    "available_quantity": 422
+  },
+  {
+    "asin": "B09N5ZNA134",
+    "product_name": "Aroma Diffuser",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 13,
+    "inbound_quantity": 79,
+    "outbound_quantity": 39,
+    "reserved_quantity": 5,
+    "available_quantity": 11
+  },
+  {
+    "asin": "B09N5ZNB145",
+    "product_name": "LED Desk Lamp",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 212,
+    "inbound_quantity": 61,
+    "outbound_quantity": 37,
+    "reserved_quantity": 16,
+    "available_quantity": 212
+  },
+  {
+    "asin": "B09N5ZNC408",
+    "product_name": "Storage Box Set",
+    "fulfillment_channel": "FBM",
+    "total_quantity": 25,
+    "inbound_quantity": 40,
+    "outbound_quantity": 32,
+    "reserved_quantity": 17,
+    "available_quantity": 23
+  },
+  {
+    "asin": "B09N5ZND796",
+    "product_name": "Cotton Towel Set",
+    "fulfillment_channel": "FBA",
+    "total_quantity": 82,
+    "inbound_quantity": 30,
+    "outbound_quantity": 16,
+    "reserved_quantity": 5,
+    "available_quantity": 64
+  }
+]

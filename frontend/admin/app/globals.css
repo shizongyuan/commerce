@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --hermes-orange: #E65C00;
+  --hermes-orange-light: #FF7A2F;
+  --hermes-orange-pale: #FFF4EE;
+  --apple-gray-1: #1D1D1F;
+  --apple-gray-2: #86868B;
+  --apple-gray-3: #E5E5E7;
+  --apple-gray-4: #FAFAFA;
+}
+
+body {
+  font-family: "SF Pro Text", "Noto Sans SC", system-ui, sans-serif;
+}

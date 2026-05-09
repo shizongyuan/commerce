@@ -1,0 +1,226 @@
+[
+  {
+    "asin": "B09N5ZNA820",
+    "title": "Premium Skincare Set",
+    "price": 216,
+    "category": "Skincare",
+    "stock": 99,
+    "rating": 3.7,
+    "review_count": 394,
+    "description": "High-quality Premium Skincare Set from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNB251",
+    "title": "Vitamin C Serum",
+    "price": 192,
+    "category": "Skincare",
+    "stock": 205,
+    "rating": 4.1,
+    "review_count": 762,
+    "description": "High-quality Vitamin C Serum from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNC538",
+    "title": "Moisturizing Cream",
+    "price": 156,
+    "category": "Skincare",
+    "stock": 58,
+    "rating": 4.4,
+    "review_count": 403,
+    "description": "High-quality Moisturizing Cream from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZND232",
+    "title": "Anti-Aging Cream",
+    "price": 273,
+    "category": "Skincare",
+    "stock": 467,
+    "rating": 4.9,
+    "review_count": 873,
+    "description": "High-quality Anti-Aging Cream from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNA565",
+    "title": "Luxury Makeup Palette",
+    "price": 557,
+    "category": "Makeup",
+    "stock": 59,
+    "rating": 4.3,
+    "review_count": 881,
+    "description": "High-quality Luxury Makeup Palette from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNB672",
+    "title": "Lipstick Collection",
+    "price": 144,
+    "category": "Makeup",
+    "stock": 217,
+    "rating": 4.0,
+    "review_count": 132,
+    "description": "High-quality Lipstick Collection from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNC114",
+    "title": "Foundation SPF20",
+    "price": 303,
+    "category": "Makeup",
+    "stock": 465,
+    "rating": 3.8,
+    "review_count": 285,
+    "description": "High-quality Foundation SPF20 from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZND524",
+    "title": "Eyeshadow Palette",
+    "price": 240,
+    "category": "Makeup",
+    "stock": 390,
+    "rating": 4.2,
+    "review_count": 414,
+    "description": "High-quality Eyeshadow Palette from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNA526",
+    "title": "Wireless Earbuds Pro",
+    "price": 895,
+    "category": "Electronics",
+    "stock": 20,
+    "rating": 4.6,
+    "review_count": 436,
+    "description": "High-quality Wireless Earbuds Pro from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNB504",
+    "title": "Bluetooth Speaker",
+    "price": 348,
+    "category": "Electronics",
+    "stock": 41,
+    "rating": 5.0,
+    "review_count": 457,
+    "description": "High-quality Bluetooth Speaker from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNC445",
+    "title": "Smart Watch",
+    "price": 1080,
+    "category": "Electronics",
+    "stock": 163,
+    "rating": 3.5,
+    "review_count": 508,
+    "description": "High-quality Smart Watch from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZND417",
+    "title": "USB-C Hub",
+    "price": 288,
+    "category": "Electronics",
+    "stock": 434,
+    "rating": 4.8,
+    "review_count": 273,
+    "description": "High-quality USB-C Hub from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNA134",
+    "title": "Aroma Diffuser",
+    "price": 139,
+    "category": "Home",
+    "stock": 13,
+    "rating": 4.6,
+    "review_count": 528,
+    "description": "High-quality Aroma Diffuser from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNB145",
+    "title": "LED Desk Lamp",
+    "price": 116,
+    "category": "Home",
+    "stock": 212,
+    "rating": 4.5,
+    "review_count": 649,
+    "description": "High-quality LED Desk Lamp from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZNC408",
+    "title": "Storage Box Set",
+    "price": 68,
+    "category": "Home",
+    "stock": 25,
+    "rating": 4.0,
+    "review_count": 888,
+    "description": "High-quality Storage Box Set from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  },
+  {
+    "asin": "B09N5ZND796",
+    "title": "Cotton Towel Set",
+    "price": 92,
+    "category": "Home",
+    "stock": 82,
+    "rating": 3.5,
+    "review_count": 663,
+    "description": "High-quality Cotton Towel Set from our premium collection.",
+    "images": [
+      "default.jpg"
+    ],
+    "status": "active"
+  }
+]
