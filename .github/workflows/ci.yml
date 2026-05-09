@@ -1,0 +1,47 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Python Lint
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Run ruff on backend
+        run: ruff check backend/
+
+      # Frontend Lint (admin)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install and lint admin
+        working-directory: ./frontend/admin
+        run: |
+          npm ci
+          npm run lint
+
+      # Frontend Lint (website)
+      - name: Install and lint website
+        working-directory: ./frontend/website
+        run: |
+          npm ci
+          npm run lint
