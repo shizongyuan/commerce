@@ -43,21 +43,34 @@ KNOWLEDGE_DIR = os.path.join(
     "knowledge",
 )
 
+# Skills 路径
+SKILLS_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+    "..",
+    "agents",
+    "skills",
+)
+
 
 @router.post("/send", response_model=ChatResponse)
 async def chat(request: ChatRequest, db: AsyncSession = Depends(get_db)):
-    """发送消息并获取 AI 回复（带知识库注入和意图识别）"""
+    """发送消息并获取 AI 回复（带知识库注入和意图识别 + Skill 执行）"""
 
-    # 获取员工的知识库配置
+    # 获取员工的知识库配置和 skills 配置
     from apps.agents.store import load_agents
     agents = load_agents()
     agent_config = next((a for a in agents if a["id"] == request.agent_id), None)
     knowledge_files = agent_config.get("knowledge_files", []) if agent_config else []
+    agent_skills = agent_config.get("skills", []) if agent_config else []
 
-    # 初始化聊天服务
-    chat_service = ChatService(KNOWLEDGE_DIR)
+    # 初始化聊天服务（带 Skill 支持）
+    chat_service = ChatService(KNOWLEDGE_DIR, SKILLS_DIR)
 
-    # 转换为 service 层的 Message dataclass
+    # 绑定 Agent 的 skills
+    if agent_skills:
+        chat_service.bind_agent_skills_for_agent(request.agent_id, agent_skills)
+
+    # 转换消息
     message_objects = [
         ServiceMessage(role=m.role, content=m.content)
         for m in request.messages[:-1]
@@ -66,29 +79,37 @@ async def chat(request: ChatRequest, db: AsyncSession = Depends(get_db)):
     # 用户最新消息
     user_message = request.messages[-1].content
 
-    # 生成回复
+    # 生成回复（带 visitor_id 用于多轮 Skill 执行）
     result = await chat_service.generate_response(
         user_message=user_message,
         conversation_history=message_objects,
         qwen_client=qwen_client,
         knowledge_files=knowledge_files,
+        visitor_id=request.agent_id,  # 使用 agent_id 作为 visitor_id
     )
 
     reply = result["reply"]
     intent = result["intent"]
-    confidence = result["confidence"]
+    confidence = result.get("confidence", 0.0)
+    skill_id = result.get("skill_id")
 
     # 更新消息历史
     messages = [m.model_dump() for m in request.messages]
     messages.append(ChatMessage(role="assistant", content=reply).model_dump())
 
-    return ChatResponse(
+    response = ChatResponse(
         agent_id=request.agent_id,
         reply=reply,
         intent=intent,
         confidence=confidence,
         messages=messages,
     )
+
+    # 如果有 skill_id，附加到响应中
+    if skill_id:
+        response.intent = skill_id  # 用 skill_id 覆盖 intent 表示使用了技能
+
+    return response
 
 
 @router.post("/stream")

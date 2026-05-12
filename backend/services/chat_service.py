@@ -1,11 +1,19 @@
 """
-AI 对话服务 - 知识库注入 + 意图识别
+AI 对话服务 - 知识库注入 + 意图识别 + Skill 执行
 """
+import logging
+
+from .skill_loader import SkillLoader, Skill
+from .skill_registry import SkillRegistry
+from .skill_executor import SkillExecutor, ExecutionContext
+from .tool_dispatcher import ToolDispatcher
+
+logger = logging.getLogger(__name__)
 
 import os
 import re
 from typing import List, Dict, Any, Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -235,11 +243,21 @@ class IntentRecognizer:
 
 
 class ChatService:
-    """聊天服务 - 整合知识库和意图识别"""
+    """聊天服务 - 整合知识库、意图识别和 Skill 执行"""
 
-    def __init__(self, knowledge_dir: str):
+    def __init__(self, knowledge_dir: str, skills_dir: str = None):
         self.knowledge = KnowledgeBase(knowledge_dir)
         self.intent_recognizer = IntentRecognizer()
+
+        # Skill 系统初始化
+        self._skill_registry: Optional[SkillRegistry] = None
+        self._skill_executor: Optional[SkillExecutor] = None
+        self._tool_dispatcher: Optional[ToolDispatcher] = None
+        self._agent_skills: Dict[str, Skill] = {}
+        self._skill_contexts: Dict[str, ExecutionContext] = {}  # visitor_id -> context
+
+        if skills_dir and os.path.exists(skills_dir):
+            self._init_skill_system(skills_dir)
 
         # 系统提示词模板
         self.system_prompt_template = """你是一位专业的电商智能客服专员，隶属于某电商公司客户服务中心。
@@ -262,6 +280,47 @@ class ChatService:
 {conversation_history}
 
 请根据知识库上下文和对话历史，回答客户的问题。"""
+
+    def _init_skill_system(self, skills_dir: str) -> None:
+        """初始化 Skill 系统"""
+        try:
+            loader = SkillLoader(skills_dir)
+            loader.load_all()
+
+            self._skill_registry = SkillRegistry(loader)
+            self._skill_registry.load_all()
+
+            self._tool_dispatcher = ToolDispatcher()
+            self._skill_executor = SkillExecutor(self._tool_dispatcher)
+
+            logger.info(f"Skill system initialized with {len(self._skill_registry.get_all_skills())} skills")
+        except Exception as e:
+            logger.warning(f"Failed to initialize skill system: {e}")
+
+    def bind_agent_skills(self, agent_skills: List[str]) -> None:
+        """绑定 Agent 的 skills 配置"""
+        if self._skill_registry and agent_skills:
+            self._agent_skills = self._skill_registry.load_for_agent("current", agent_skills)
+            logger.info(f"Bound {len(self._agent_skills)} skills to current agent")
+
+    def bind_agent_skills_for_agent(self, agent_id: str, agent_skills: List[str]) -> None:
+        """为指定 Agent 绑定 skills"""
+        if self._skill_registry and agent_skills:
+            self._agent_skills = self._skill_registry.load_for_agent(agent_id, agent_skills)
+            logger.info(f"Bound {len(self._agent_skills)} skills to agent {agent_id}")
+
+    def get_skill_context(self, visitor_id: str) -> Optional[ExecutionContext]:
+        """获取访客的 Skill 执行上下文（用于多轮对话）"""
+        return self._skill_contexts.get(visitor_id)
+
+    def set_skill_context(self, visitor_id: str, context: ExecutionContext) -> None:
+        """设置访客的 Skill 执行上下文"""
+        self._skill_contexts[visitor_id] = context
+
+    def clear_skill_context(self, visitor_id: str) -> None:
+        """清除访客的 Skill 执行上下文"""
+        if visitor_id in self._skill_contexts:
+            del self._skill_contexts[visitor_id]
 
     def get_knowledge_context(self, knowledge_files: List[str] = None, intent: Intent = None, user_query: str = "") -> str:
         """获取知识库上下文"""
@@ -338,8 +397,62 @@ class ChatService:
         conversation_history: List[Message],
         qwen_client,
         knowledge_files: List[str] = None,
+        visitor_id: str = None,
     ) -> Dict[str, Any]:
-        """生成 AI 回复（异步版本）"""
+        """生成 AI 回复（异步版本）- 支持 Skill 执行"""
+        # Step 0: 检查是否有进行中的 Skill 执行上下文
+        if visitor_id and self._skill_executor and self._skill_registry:
+            existing_context = self.get_skill_context(visitor_id)
+            if existing_context:
+                # 继续执行 Skill 流程
+                skill = self._skill_registry.get_skill(existing_context.skill_id)
+                if skill:
+                    logger.info(f"Resuming skill {skill.id} at step {existing_context.current_step_index}")
+                    result = await self._skill_executor.execute(
+                        skill, existing_context, user_message, qwen_client
+                    )
+                    # 更新上下文
+                    if not result.is_complete:
+                        self.set_skill_context(visitor_id, existing_context)
+                    else:
+                        self.clear_skill_context(visitor_id)
+                    return {
+                        "reply": result.reply,
+                        "intent": result.intent,
+                        "skill_id": result.skill_id,
+                        "requires_response": result.requires_response,
+                        "is_complete": result.is_complete,
+                    }
+
+        # Step 1: 尝试 Skill 匹配
+        if self._skill_registry and self._agent_skills:
+            matched = self._skill_registry.match_skill(user_message, self._agent_skills)
+            if matched:
+                skill, confidence = matched
+                logger.info(f"Matched skill: {skill.id} (confidence: {confidence:.2f})")
+
+                # 创建执行上下文
+                context = self._skill_executor.create_context(skill.id, user_message)
+
+                # 执行 Skill
+                result = await self._skill_executor.execute(
+                    skill, context, user_message, qwen_client
+                )
+
+                # 如果需要继续对话，保存上下文
+                if not result.is_complete and visitor_id:
+                    self.set_skill_context(visitor_id, context)
+
+                return {
+                    "reply": result.reply,
+                    "intent": result.intent,
+                    "skill_id": result.skill_id,
+                    "confidence": confidence,
+                    "requires_response": result.requires_response,
+                    "is_complete": result.is_complete,
+                }
+
+        # Step 2: Fallback - 使用原有意图识别
         intent = self.intent_recognizer.recognize(user_message)
         messages = self.build_system_prompt(conversation_history, user_message, intent, knowledge_files)
 
