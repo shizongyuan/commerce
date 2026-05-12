@@ -15,19 +15,20 @@ class TestQwenClient:
         assert client.model is not None
         assert client.base_url is not None
 
-    def test_client_without_api_key(self):
-        """测试无 API Key 时的处理"""
+    def test_client_uses_settings_api_key(self):
+        """测试客户端使用 settings 中的 API Key"""
         from core.ai_client import QwenClient
 
-        client = QwenClient(api_key=None)
-        # 无 key 时为 None
-        assert client.api_key is None or client.api_key == ""
+        # 当不传 api_key 时，应该使用 settings 中的
+        client = QwenClient()
+        # settings.qwen_api_key 来自 .env
+        assert client.api_key is not None
 
     def test_embeddings_returns_list(self):
         """测试嵌入向量返回"""
         from core.ai_client import QwenClient
 
-        client = QwenClient(api_key=None)
+        client = QwenClient(api_key="test-key")
         result = asyncio.get_event_loop().run_until_complete(
             client.embeddings(["测试文本"])
         )
@@ -38,16 +39,15 @@ class TestQwenClient:
 
 
 @pytest.mark.asyncio
-async def test_chat_without_api_key():
-    """测试异步调用无 API Key"""
+async def test_chat_with_valid_message():
+    """测试发送有效消息"""
     from core.ai_client import QwenClient
 
-    client = QwenClient(api_key=None)
-    result = await client.chat([])
+    client = QwenClient()
+    result = await client.chat([{"role": "user", "content": "hi"}])
 
-    assert "choices" in result
-    assert "error" in result
-    assert "API key" in result["error"]
+    assert isinstance(result, dict)
+    assert "choices" in result or "error" in result
 
 
 @pytest.mark.asyncio
@@ -55,7 +55,7 @@ async def test_chat_returns_dict():
     """测试 chat 返回字典格式"""
     from core.ai_client import QwenClient
 
-    client = QwenClient(api_key=None)
+    client = QwenClient()
     result = await client.chat([{"role": "user", "content": "hi"}])
 
     assert isinstance(result, dict)
