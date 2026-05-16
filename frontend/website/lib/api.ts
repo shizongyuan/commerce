@@ -41,6 +41,12 @@ async function request<T>(
   return response.json();
 }
 
+export function getImageUrl(path: string): string {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${API_BASE_URL}${path}`;
+}
+
 export const apiClient = {
   async getProducts(params?: {
     page?: number;

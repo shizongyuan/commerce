@@ -1,4 +1,5 @@
 import secrets
+import os
 from pydantic_settings import BaseSettings
 from typing import Optional
 
@@ -6,7 +7,7 @@ from typing import Optional
 class Settings(BaseSettings):
     # App
     app_name: str = "E-commerce AI Platform"
-    debug: bool = True
+    debug: bool = False
     api_prefix: str = "/api"
 
     # Database
@@ -20,6 +21,9 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60 * 24 * 7  # 7 days
 
+    # Admin - MUST be set via environment variable, no default
+    admin_password: Optional[str] = None
+
     # Qwen API
     qwen_api_key: Optional[str] = None
     qwen_model: str = "qwen3.5plus"
@@ -28,9 +32,26 @@ class Settings(BaseSettings):
     # CORS
     cors_origins: list[str] = ["http://localhost:3000", "http://localhost:3001"]
 
+    # Server
+    server_host: str = "localhost"
+    server_port: int = 8004
+
     class Config:
         env_file = ".env"
+        env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "allow"
+
+    @property
+    def admin_password(self) -> str:
+        """Get admin password from environment or settings, raise error if not set"""
+        password = os.environ.get("ADMIN_PASSWORD") or self.admin_password
+        if not password:
+            raise RuntimeError(
+                "ADMIN_PASSWORD environment variable is not set. "
+                "Please set it before starting the server in production mode."
+            )
+        return password
 
 
 settings = Settings()

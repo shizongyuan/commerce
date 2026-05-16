@@ -29,7 +29,11 @@ class RedisCache:
 
     async def get(self, key: str) -> Optional[Any]:
         """获取缓存值"""
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.debug(f"Cache.get called with key: {key}, client exists: {self._client is not None}")
         if not self._client:
+            logger.debug("Cache._client is None, returning None")
             return None
         try:
             value = await self._client.get(key)
@@ -37,9 +41,10 @@ class RedisCache:
                 try:
                     return json.loads(value)
                 except json.JSONDecodeError:
-                    return value
+                    return None  # Invalid cache data, treat as miss
             return None
-        except Exception:
+        except Exception as e:
+            logger.warning(f"Cache.get failed: {e}")
             return None
 
     async def set(
@@ -101,6 +106,32 @@ class RedisCache:
 cache = RedisCache()
 
 
+# 缓存 TTL 常量（秒）
+class CacheTTL:
+    """统一管理缓存过期时间"""
+    # 产品相关 - 5分钟
+    PRODUCT = 300
+    PRODUCT_LIST = 300
+
+    # AI Agent 相关 - 10分钟
+    AGENT = 600
+    AGENT_CONFIG = 600
+
+    # 对话相关 - 30分钟
+    CONVERSATION = 1800
+    CONVERSATION_HISTORY = 1800
+
+    # 知识库 - 1小时
+    KNOWLEDGE = 3600
+
+    # 分析数据 - 5分钟
+    DASHBOARD_STATS = 300
+    ANALYTICS = 300
+
+    # 默认值
+    DEFAULT = 3600
+
+
 # 缓存 key 模板
 class CacheKeys:
     """缓存键命名规范"""
@@ -130,3 +161,9 @@ class CacheKeys:
         if category:
             return f"products:list:{category}:{page}"
         return f"products:list:all:{page}"
+
+    @staticmethod
+    def analytics(category: str = None) -> str:
+        if category:
+            return f"analytics:{category}"
+        return "analytics:all"

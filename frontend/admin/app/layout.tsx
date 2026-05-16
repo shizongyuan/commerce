@@ -16,6 +16,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth";
+import { ToastContainer } from "@/components/ui";
 
 const navItems = [
   { href: "/dashboard", label: "仪表盘", icon: LayoutDashboard },
@@ -53,6 +54,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-apple-gray-4 flex">
+      <ToastContainer />
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -65,7 +67,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
       <aside
         className={`
           fixed top-0 left-0 z-50 h-full w-64 bg-white border-r border-apple-gray-3 flex flex-col
-          transform transition-transform duration-300 ease-in-out
+          transition-transform duration-300
           lg:translate-x-0 lg:static lg:z-auto
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
         `}

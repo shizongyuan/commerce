@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { MessageCircle, ShoppingBag, ChevronRight, Shield, Truck, Gift, Star, Gem, Zap, Headphones, Bot, Instagram, Youtube, MessageSquare } from "lucide-react";
 import { useProducts } from "@/hooks/use-products";
+import { getImageUrl } from "@/lib/api";
 import { AnimatedSection, FloatingOrb, MagneticWrapper } from "@/components/animated-section";
 
 const agents = [
@@ -331,7 +332,7 @@ export default function WebsiteHome() {
                     <div className="aspect-square bg-gradient-to-br from-apple-gray-4 to-apple-gray-3 rounded-xl mb-4 overflow-hidden relative">
                       {product.images && product.images[0] ? (
                         <img
-                          src={product.images[0]}
+                          src={getImageUrl(product.images[0])}
                           alt={product.name}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                           onError={(e) => {

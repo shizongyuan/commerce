@@ -46,12 +46,14 @@ class AgentService:
         )
 
         # 使用全局 async qwen_client，避免同步阻塞
-        response = await qwen_client.chat(messages=system_messages)
-
-        if "choices" in response:
-            reply = response["choices"][0]["message"]["content"]
-        else:
-            reply = f"服务暂时不可用: {response.get('error', 'Unknown error')}"
+        try:
+            response = await qwen_client.chat(messages=system_messages)
+            if "choices" in response:
+                reply = response["choices"][0]["message"]["content"]
+            else:
+                reply = f"服务暂时不可用: {response.get('error', 'Unknown error')}"
+        except Exception as e:
+            reply = f"服务暂时不可用: {str(e)}"
 
         return {
             "agent_id": agent_id,

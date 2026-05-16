@@ -50,6 +50,12 @@ function ChatContent() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<Message[]>([]);
+
+  // Keep messagesRef in sync with messages state
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   // Fetch agents from API
   useEffect(() => {
@@ -61,7 +67,7 @@ function ChatContent() {
           const apiAgents = data.items.map((a: any) => ({
             id: a.id,
             name: a.name,
-            avatar: `/images/agents/ai_${a.id}.png`,
+            avatar: a.avatar || `/images/agents/ai_${a.id}.webp`,
             greeting: a.greeting || `您好！我是${a.name}。`,
           }));
           setAgents(apiAgents);
@@ -94,6 +100,9 @@ function ChatContent() {
 
     setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
+    // Use messagesRef to avoid stale closure
+    const currentMessages = [...messagesRef.current, userMessage];
+
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
 
     try {
@@ -102,11 +111,11 @@ function ChatContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           agent_id: currentAgent.id,
-          messages: [...messages, userMessage].map((m) => ({
+          messages: currentMessages.map((m) => ({
             role: m.role,
             content: m.content,
           })),
-          stream: false,
+          stream: true,
         }),
       });
 
@@ -114,15 +123,45 @@ function ChatContent() {
         throw new Error(`API request failed: ${response.status}`);
       }
 
-      const data = await response.json();
-      if (data.reply) {
-        setMessages((prev) => {
-          const updated = [...prev];
-          if (updated.length > 0 && updated[updated.length - 1].role === "assistant") {
-            updated[updated.length - 1] = { role: "assistant", content: data.reply };
+      // 流式处理 SSE
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let fullReply = "";
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split("\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              try {
+                const data = JSON.parse(line.slice(6));
+                if (data.type === "chunk" && data.content) {
+                  fullReply += data.content;
+                  // 实时更新消息
+                  setMessages((prev) => {
+                    const updated = [...prev];
+                    if (updated.length > 0 && updated[updated.length - 1].role === "assistant") {
+                      updated[updated.length - 1] = { role: "assistant", content: fullReply };
+                    }
+                    return updated;
+                  });
+                } else if (data.type === "done") {
+                  // 完成
+                  break;
+                } else if (data.type === "error") {
+                  throw new Error(data.content);
+                }
+              } catch (e) {
+                // 忽略解析错误
+              }
+            }
           }
-          return updated;
-        });
+        }
       }
     } catch (error) {
       setMessages((prev) => {

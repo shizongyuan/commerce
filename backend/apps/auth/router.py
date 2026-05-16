@@ -2,24 +2,32 @@
 认证路由
 """
 
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Response, Request
 from pydantic import BaseModel, EmailStr
 from datetime import timedelta
-from core.auth import hash_password, verify_password, create_access_token
+from core.auth import hash_password, verify_password, create_access_token, get_current_user_id
 from core.config import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-# Mock 用户存储（生产环境应使用数据库）
-MOCK_USERS = {
-    "admin": {
-        "id": "user-001",
-        "email": "admin@example.com",
-        "name": "管理员",
-        "password": hash_password("admin123"),
-        "role": "admin",
-    },
-}
+
+def get_mock_admin_user():
+    """获取 Mock Admin 用户（延迟密码哈希计算）"""
+    try:
+        password = settings.admin_password
+        return {
+            "id": "user-001",
+            "email": "admin@example.com",
+            "name": "管理员",
+            "password": hash_password(password),
+            "role": "admin",
+        }
+    except RuntimeError as e:
+        logger.warning(f"ADMIN_PASSWORD not set, admin login disabled: {e}")
+        return None
 
 
 class LoginRequest(BaseModel):
@@ -48,11 +56,19 @@ class RegisterResponse(BaseModel):
 
 
 @router.post("/login", response_model=LoginResponse)
-async def login(request: LoginRequest):
+async def login(request: Request, login_request: LoginRequest, response: Response):
     """用户登录"""
-    user = MOCK_USERS.get(request.username)
+    # 获取 admin 用户（如密码未设置则返回 None）
+    admin_user = get_mock_admin_user()
 
-    if not user or not verify_password(request.password, user["password"]):
+    # 构建用户字典（仅当 admin_user 存在时包含 admin）
+    mock_users = {}
+    if admin_user:
+        mock_users["admin"] = admin_user
+
+    user = mock_users.get(login_request.username)
+
+    if not user or not verify_password(login_request.password, user["password"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="用户名或密码错误",
@@ -61,6 +77,16 @@ async def login(request: LoginRequest):
     access_token = create_access_token(
         data={"sub": user["id"], "username": user["name"], "role": user["role"]},
         expires_delta=timedelta(minutes=settings.jwt_expire_minutes),
+    )
+
+    # 设置 HttpOnly Cookie
+    response.set_cookie(
+        key="token",
+        value=access_token,
+        httponly=True,
+        secure=True,
+        samesite="lax",
+        max_age=settings.jwt_expire_minutes * 60,
     )
 
     return LoginResponse(
@@ -77,30 +103,30 @@ async def login(request: LoginRequest):
 @router.post("/register", response_model=RegisterResponse)
 async def register(request: RegisterRequest):
     """用户注册"""
-    if request.username in MOCK_USERS:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="用户名已存在",
-        )
-
-    user_id = f"user-{len(MOCK_USERS) + 1:03d}"
-    MOCK_USERS[request.username] = {
-        "id": user_id,
-        "email": request.email,
-        "name": request.name,
-        "password": hash_password(request.password),
-        "role": "viewer",
-    }
-
-    return RegisterResponse(
-        id=user_id,
-        email=request.email,
-        name=request.name,
-        message="注册成功",
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="注册功能已禁用，请联系管理员",
     )
 
 
 @router.get("/me")
-async def get_current_user(token: str = Depends(lambda: None)):
+async def get_current_user(user_id: str = Depends(get_current_user_id)):
     """获取当前用户信息"""
-    return {"message": "需要登录后访问"}
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="未登录或 Token 已过期",
+        )
+    # Find user by ID - check admin first
+    admin_user = get_mock_admin_user()
+    if admin_user and admin_user["id"] == user_id:
+        return {
+            "id": admin_user["id"],
+            "name": admin_user["name"],
+            "email": admin_user["email"],
+            "role": admin_user["role"],
+        }
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="用户不存在",
+    )

@@ -1,3 +1,4 @@
+import httpx
 from typing import Optional, List, Dict, Any
 from openai import AsyncOpenAI
 from core.config import settings
@@ -24,6 +25,7 @@ class QwenClient:
             self._client = AsyncOpenAI(
                 api_key=self.api_key,
                 base_url=self.base_url,
+                timeout=httpx.Timeout(30.0, connect=10.0),
             )
         return self._client
 
@@ -41,10 +43,7 @@ class QwenClient:
         发送对话请求到 Qwen
         """
         if not self.api_key:
-            return {
-                "choices": [{"message": {"content": "Qwen API key not configured"}}],
-                "error": "API key missing",
-            }
+            raise ValueError("Qwen API key not configured")
 
         try:
             response = await self.client.chat.completions.create(
@@ -55,11 +54,10 @@ class QwenClient:
                 stream=stream,
             )
             return response.model_dump()
+        except httpx.TimeoutException:
+            raise TimeoutError(f"Request to Qwen timed out after 30s")
         except Exception as e:
-            return {
-                "choices": [{"message": {"content": f"Request failed: {e}"}}],
-                "error": str(e),
-            }
+            raise RuntimeError(f"Qwen API request failed: {e}")
 
     async def embeddings(self, texts: List[str]) -> List[List[float]]:
         """获取文本嵌入向量"""

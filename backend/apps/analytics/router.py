@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 from pydantic import BaseModel
 from core.database import get_db
+from core.auth import get_current_user_id
+from data.mock_analytics import MOCK_TOP10_DATA
 import random
 from datetime import datetime, timedelta
 
@@ -116,18 +118,18 @@ def generate_mock_data():
     )
 
 
-@router.get("/dashboard", response_model=AnalyticsDashboard)
+@router.get("/dashboard", response_model=AnalyticsDashboard, dependencies=[Depends(get_current_user_id)])
 async def get_dashboard(db: AsyncSession = Depends(get_db)):
     return generate_mock_data()
 
 
-@router.get("/sales/summary", response_model=SalesSummary)
+@router.get("/sales/summary", response_model=SalesSummary, dependencies=[Depends(get_current_user_id)])
 async def get_sales_summary(db: AsyncSession = Depends(get_db)):
     data = generate_mock_data()
     return data.sales
 
 
-@router.get("/sales/trend", response_model=list[SalesTrend])
+@router.get("/sales/trend", response_model=list[SalesTrend], dependencies=[Depends(get_current_user_id)])
 async def get_sales_trend(
     days: int = 7,
     db: AsyncSession = Depends(get_db),
@@ -136,13 +138,13 @@ async def get_sales_trend(
     return data.sales_trend
 
 
-@router.get("/products/ranking", response_model=list[ProductRanking])
+@router.get("/products/ranking", response_model=list[ProductRanking], dependencies=[Depends(get_current_user_id)])
 async def get_product_ranking(db: AsyncSession = Depends(get_db)):
     data = generate_mock_data()
     return data.product_ranking
 
 
-@router.get("/alerts", response_model=list[AlertItem])
+@router.get("/alerts", response_model=list[AlertItem], dependencies=[Depends(get_current_user_id)])
 async def get_alerts(db: AsyncSession = Depends(get_db)):
     data = generate_mock_data()
     return data.alerts
@@ -181,7 +183,7 @@ class SalesHourly(BaseModel):
     orders: int
 
 
-@router.get("/orders/distribution", response_model=list[OrderStatusDistribution])
+@router.get("/orders/distribution", response_model=list[OrderStatusDistribution], dependencies=[Depends(get_current_user_id)])
 async def get_order_distribution(db: AsyncSession = Depends(get_db)):
     """订单状态分布"""
     return [
@@ -194,7 +196,7 @@ async def get_order_distribution(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/orders/region", response_model=list[RegionRanking])
+@router.get("/orders/region", response_model=list[RegionRanking], dependencies=[Depends(get_current_user_id)])
 async def get_order_region(db: AsyncSession = Depends(get_db)):
     """订单地域分布 TOP5"""
     return [
@@ -206,7 +208,7 @@ async def get_order_region(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/orders/payment", response_model=list[PaymentMethodDistribution])
+@router.get("/orders/payment", response_model=list[PaymentMethodDistribution], dependencies=[Depends(get_current_user_id)])
 async def get_payment_distribution(db: AsyncSession = Depends(get_db)):
     """支付方式分布"""
     return [
@@ -216,7 +218,7 @@ async def get_payment_distribution(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/sales/funnel", response_model=list[ConversionFunnel])
+@router.get("/sales/funnel", response_model=list[ConversionFunnel], dependencies=[Depends(get_current_user_id)])
 async def get_conversion_funnel(db: AsyncSession = Depends(get_db)):
     """转化率漏斗"""
     return [
@@ -227,7 +229,7 @@ async def get_conversion_funnel(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/sales/hourly", response_model=list[SalesHourly])
+@router.get("/sales/hourly", response_model=list[SalesHourly], dependencies=[Depends(get_current_user_id)])
 async def get_sales_hourly(
     date: str = None,
     db: AsyncSession = Depends(get_db),
@@ -245,7 +247,54 @@ async def get_sales_hourly(
     return data
 
 
-@router.get("/sales/trend/extended", response_model=dict)
+# ============ 亚马逊品类 TOP 10 ============
+
+class AmazonTop10Item(BaseModel):
+    rank: int
+    asin: str
+    name: str
+    price: float
+    rating: float
+    reviews: int
+    category: str
+    bsr_rank: int
+    image_url: str
+
+
+@router.get("/category-top10", response_model=list[AmazonTop10Item], dependencies=[Depends(get_current_user_id)])
+async def get_category_top10(
+    category: str = "skincare",
+    db: AsyncSession = Depends(get_db),
+):
+    """获取亚马逊指定品类 TOP 10 产品"""
+    import random
+
+    # 获取品类数据
+    items = MOCK_TOP10_DATA.get(category, MOCK_TOP10_DATA["skincare"])
+
+    result = []
+    for i, item in enumerate(items, 1):
+        bsr_rank = random.randint(1, 5000) if i <= 5 else random.randint(5000, 50000)
+
+        # 使用本地图片路径 (PNG格式)
+        image_url = f"/static/top10/{category}-{i:02d}.png"
+
+        result.append(AmazonTop10Item(
+            rank=i,
+            asin=item["asin"],
+            name=item["name"],
+            price=item["price"],
+            rating=item["rating"],
+            reviews=item["reviews"],
+            category=category,
+            bsr_rank=bsr_rank,
+            image_url=image_url,
+        ))
+
+    return result
+
+
+@router.get("/sales/trend/extended", response_model=dict, dependencies=[Depends(get_current_user_id)])
 async def get_extended_sales_trend(
     days: int = 30,
     db: AsyncSession = Depends(get_db),

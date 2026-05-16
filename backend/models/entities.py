@@ -103,6 +103,7 @@ class Conversation(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)  # nullable for anonymous
     agent_id = Column(String(50), nullable=False, index=True)
+    visitor_id = Column(String(100), nullable=True, index=True)  # 访客标识（用于未登录用户）
     status = Column(String(20), default="active", index=True)  # active, ended
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
     ended_at = Column(DateTime, nullable=True)
@@ -110,6 +111,10 @@ class Conversation(Base):
     # 关系
     user = relationship("User", back_populates="conversations")
     messages = relationship("ConversationMessage", back_populates="conversation", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        Index("idx_agent_visitor", "agent_id", "visitor_id"),
+    )
 
 
 class ConversationMessage(Base):
@@ -142,6 +147,26 @@ class AIAgent(Base):
     greeting = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class AgentUserContext(Base):
+    """AI 员工-用户上下文（方案A: 复用 Conversation）"""
+    __tablename__ = "agent_user_contexts"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    agent_id = Column(String(50), nullable=False, index=True)  # 如 xiaoxue
+    visitor_id = Column(String(100), nullable=False, index=True)  # 用户/访客标识
+    status = Column(String(20), default="active", index=True)  # active, ended
+    memory = Column(JSON, default=dict)  # 用户记忆 JSON: {"偏好": "敏感肌", "尺码": "M"}
+    context_summary = Column(Text)  # 上下文摘要
+    message_count = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    ended_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index("idx_agent_visitor", "agent_id", "visitor_id"),
+    )
 
 
 class KnowledgeItem(Base):

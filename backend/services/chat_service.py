@@ -82,7 +82,8 @@ class KnowledgeBase:
                         with open(filepath, "r", encoding="utf-8") as f:
                             content = f.read()
                         self._cache[relpath] = content
-                    except Exception:
+                    except Exception as e:
+                        logger.warning(f"Failed to read knowledge file {relpath}: {e}")
                         continue
 
         return self._cache
@@ -106,7 +107,8 @@ class KnowledgeBase:
                 try:
                     with open(filepath, "r", encoding="utf-8") as f:
                         contents[path] = f.read()
-                except Exception:
+                except Exception as e:
+                    logger.warning(f"Failed to load file {path}: {e}")
                     continue
         return contents
 

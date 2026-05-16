@@ -17,7 +17,7 @@ import {
   Plus,
   Check,
 } from "lucide-react";
-import { apiClient, type Product } from "@/lib/api";
+import { apiClient, getImageUrl, type Product } from "@/lib/api";
 import { AnimatedSection } from "@/components/animated-section";
 
 export default function ProductDetailPage() {
@@ -123,7 +123,7 @@ export default function ProductDetailPage() {
                   <div className="aspect-square bg-gradient-to-br from-apple-gray-4 to-apple-gray-3 rounded-2xl overflow-hidden relative group">
                     {images.length > 0 ? (
                       <img
-                        src={images[selectedImage]}
+                        src={getImageUrl(images[selectedImage])}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />

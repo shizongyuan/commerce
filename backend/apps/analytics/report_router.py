@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, Field
 from typing import Optional
 from core.database import get_db
+from core.auth import get_current_user_id
 from services.report_service import report_generator
 from services.agent_service import agent_service
 from core.ai_client import qwen_client
@@ -26,7 +27,7 @@ class ReportResponse(BaseModel):
     generated_at: str
 
 
-@router.post("/generate", response_model=ReportResponse)
+@router.post("/generate", response_model=ReportResponse, dependencies=[Depends(get_current_user_id)])
 async def generate_report(
     request: ReportRequest,
     db: AsyncSession = Depends(get_db),
@@ -58,7 +59,7 @@ async def generate_report(
     )
 
 
-@router.get("/latest")
+@router.get("/latest", dependencies=[Depends(get_current_user_id)])
 async def get_latest_report(db: AsyncSession = Depends(get_db)):
     """获取最新生成的几份报告"""
     return {

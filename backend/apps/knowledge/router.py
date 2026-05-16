@@ -3,8 +3,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from pydantic import BaseModel
 from core.database import get_db
+from core.auth import get_current_user_id
 import os
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -53,13 +57,14 @@ def search_knowledge(query: str, max_results: int = 5) -> List[KnowledgeItem]:
                                 word_count=word_count,
                             )
                         )
-                except Exception:
+                except Exception as e:
+                    logger.warning(f"Failed to read file {filepath}: {e}")
                     continue
 
     return results[:max_results]
 
 
-@router.get("/search")
+@router.get("/search", dependencies=[Depends(get_current_user_id)])
 async def search(
     q: str,
     max_results: int = 5,
@@ -69,7 +74,7 @@ async def search(
     return KnowledgeListResponse(items=results, total=len(results))
 
 
-@router.get("/files")
+@router.get("/files", dependencies=[Depends(get_current_user_id)])
 async def list_files(db: AsyncSession = Depends(get_db)):
     items = []
     if os.path.exists(KNOWLEDGE_BASE):
@@ -91,7 +96,7 @@ async def list_files(db: AsyncSession = Depends(get_db)):
     return KnowledgeListResponse(items=items, total=len(items))
 
 
-@router.get("/file/{path:path}")
+@router.get("/file/{path:path}", dependencies=[Depends(get_current_user_id)])
 async def get_file(path: str, db: AsyncSession = Depends(get_db)):
     # 防止路径遍历攻击
     normalized = os.path.normpath(path)

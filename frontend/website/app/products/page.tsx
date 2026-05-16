@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Search, ChevronRight, ChevronLeft, Grid, LayoutGrid, SlidersHorizontal, X, Sparkles, Palette, Smartphone } from "lucide-react";
 import { useProducts } from "@/hooks/use-products";
+import { getImageUrl } from "@/lib/api";
 import { AnimatedSection } from "@/components/animated-section";
 
 const categories = [
@@ -181,7 +182,7 @@ export default function ProductsPage() {
                     <div className="aspect-square bg-gradient-to-br from-apple-gray-4 to-apple-gray-3 rounded-xl mb-4 overflow-hidden relative isolate">
                       {product.images && product.images[0] ? (
                         <img
-                          src={product.images[0]}
+                          src={getImageUrl(product.images[0])}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           onError={(e) => {
