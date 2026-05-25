@@ -60,10 +60,20 @@ class ProductRepository(BaseRepository[Product]):
         return list(result.scalars().all())
 
     async def update_stock(self, id: UUID, delta: int) -> Optional[Product]:
-        """更新库存（增减）"""
-        product = await self.get_by_id(id)
-        if product:
-            product.stock = max(0, product.stock + delta)
-            await self.session.flush()
-            await self.session.refresh(product)
-        return product
+        """更新库存（增减）- 使用原子更新避免竞态"""
+        from sqlalchemy import update
+        from models.entities import Product as ProductModel
+
+        # 原子更新：直接在数据库层面计算新库存值
+        stmt = (
+            update(ProductModel)
+            .where(ProductModel.id == id)
+            .values(stock=ProductModel.stock + delta)  # 数据库层面计算
+        )
+        result = await self.session.execute(stmt)
+        await self.session.flush()
+
+        # 如果有行被更新，重新读取最新数据
+        if result.rowcount > 0:
+            return await self.get_by_id(id)
+        return None

@@ -73,7 +73,6 @@ async def global_exception_handler(request: Request, exc: Exception):
     # 永远不暴露异常详情，即使在调试模式
     # 调试模式的详细信息应该只在日志中记录
     import logging
-    import traceback
     logger = logging.getLogger(__name__)
     logger.error(
         f"Unhandled exception: {exc}",
@@ -84,9 +83,6 @@ async def global_exception_handler(request: Request, exc: Exception):
         },
         exc_info=True
     )
-    # Print traceback to stderr for debugging
-    print(f"EXCEPTION TRACE: {exc}")
-    traceback.print_exc()
     return JSONResponse(
         status_code=500,
         content={
@@ -147,7 +143,7 @@ app.include_router(chat_router, prefix=f"{settings.api_prefix}/chat", tags=["cha
 app.include_router(knowledge_router, prefix=f"{settings.api_prefix}/knowledge", tags=["knowledge"])
 app.include_router(analytics_router, prefix=f"{settings.api_prefix}/analytics", tags=["analytics"])
 app.include_router(report_router, prefix=f"{settings.api_prefix}/reports", tags=["reports"])
-app.include_router(context_router, prefix=f"{settings.api_prefix}/agents", tags=["context"])
+app.include_router(context_router, prefix=f"{settings.api_prefix}/context", tags=["context"])
 
 # 静态文件服务
 public_dir = os.path.join(os.path.dirname(__file__), "public")

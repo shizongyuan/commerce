@@ -5,10 +5,12 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 import os
 import uuid
+import asyncio
+import aiofiles
 from pathlib import Path
 from core.database import get_db
 from core.auth import get_current_user_id
-from .store import load_agents, save_agents
+from .store import load_agents, save_agents, get_agents_dict
 
 router = APIRouter()
 
@@ -75,29 +77,27 @@ async def upload_avatar(file: UploadFile = File(...)):
     if len(contents) > 2 * 1024 * 1024:
         raise HTTPException(status_code=400, detail="图片大小不能超过 2MB")
 
-    # 转换为 webp 格式
+    # 转换为 webp 格式 - 使用线程池避免阻塞
     from PIL import Image
     import io
-    
-    # 打开图片
-    img = Image.open(io.BytesIO(contents))
-    
-    # 转为 RGB 模式（去除 alpha 通道）
-    if img.mode in ("RGBA", "P"):
-        img = img.convert("RGB")
-    
-    # 转为 webp
-    webp_buffer = io.BytesIO()
-    img.save(webp_buffer, format="WEBP", quality=85)
-    webp_contents = webp_buffer.getvalue()
+
+    def convert_to_webp(contents: bytes) -> bytes:
+        img = Image.open(io.BytesIO(contents))
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+        webp_buffer = io.BytesIO()
+        img.save(webp_buffer, format="WEBP", quality=85)
+        return webp_buffer.getvalue()
+
+    webp_contents = await asyncio.to_thread(convert_to_webp, contents)
 
     # 生成文件名
     filename = f"{uuid.uuid4()}.webp"
     filepath = os.path.join(AVATARS_DIR, filename)
 
-    # 保存文件
-    with open(filepath, "wb") as f:
-        f.write(webp_contents)
+    # 异步保存文件
+    async with aiofiles.open(filepath, "wb") as f:
+        await f.write(webp_contents)
 
     # 返回完整 URL
     return {
@@ -110,6 +110,9 @@ async def upload_avatar(file: UploadFile = File(...)):
 @router.get("/avatars/{filename}")
 async def get_avatar(filename: str):
     """获取头像图片"""
+    # 防止路径遍历攻击
+    if ".." in filename or filename.startswith("/") or "/" in filename:
+        raise HTTPException(status_code=400, detail="Invalid filename")
     filepath = os.path.join(AVATARS_DIR, filename)
     if not os.path.exists(filepath):
         raise HTTPException(status_code=404, detail="Avatar not found")
@@ -129,11 +132,12 @@ async def list_agents(db: AsyncSession = Depends(get_db)):
 
 @router.get("/{agent_id}", response_model=AgentConfig, dependencies=[Depends(get_current_user_id)])
 async def get_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
-    for a in get_agents():
-        if a["id"] == agent_id:
-            a = _fix_avatar_url(a)
-            return AgentConfig(**a)
-    raise HTTPException(status_code=404, detail="Agent not found")
+    agents_dict = get_agents_dict()
+    agent = agents_dict.get(agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+    agent = _enrich_agent_avatar(agent)
+    return AgentConfig(**agent)
 
 
 @router.post("", dependencies=[Depends(get_current_user_id)])

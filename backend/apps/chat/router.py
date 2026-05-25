@@ -45,10 +45,9 @@ KNOWLEDGE_DIR = os.path.join(
     "knowledge",
 )
 
-# Skills 路径
+# Skills 路径 - 正确解析到 backend/agents/skills
 SKILLS_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-    "..",
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
     "agents",
     "skills",
 )

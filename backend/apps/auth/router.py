@@ -2,6 +2,7 @@
 认证路由
 """
 
+import os
 from fastapi import APIRouter, HTTPException, status, Depends, Response, Request
 from pydantic import BaseModel, EmailStr
 from datetime import timedelta
@@ -12,22 +13,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/auth", tags=["auth"])
-
-
-def get_mock_admin_user():
-    """获取 Mock Admin 用户（延迟密码哈希计算）"""
-    try:
-        password = settings.admin_password
-        return {
-            "id": "user-001",
-            "email": "admin@example.com",
-            "name": "管理员",
-            "password": hash_password(password),
-            "role": "admin",
-        }
-    except RuntimeError as e:
-        logger.warning(f"ADMIN_PASSWORD not set, admin login disabled: {e}")
-        return None
 
 
 class LoginRequest(BaseModel):
@@ -53,6 +38,22 @@ class RegisterResponse(BaseModel):
     email: str
     name: str
     message: str
+
+
+def get_mock_admin_user():
+    """获取 Mock Admin 用户（延迟密码哈希计算）"""
+    try:
+        password = settings.admin_password
+        return {
+            "id": "user-001",
+            "email": "admin@example.com",
+            "name": "管理员",
+            "password": hash_password(password),
+            "role": "admin",
+        }
+    except RuntimeError as e:
+        logger.warning(f"ADMIN_PASSWORD not set, admin login disabled: {e}")
+        return None
 
 
 @router.post("/login", response_model=LoginResponse)

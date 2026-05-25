@@ -1,6 +1,6 @@
 import secrets
 import os
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
 
 
@@ -36,11 +36,12 @@ class Settings(BaseSettings):
     server_host: str = "localhost"
     server_port: int = 8004
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
-        extra = "allow"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="allow",
+    )
 
     @property
     def admin_password(self) -> str:

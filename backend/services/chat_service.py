@@ -469,16 +469,23 @@ class ChatService:
         return self._process_response(response, intent)
 
     def _do_chat_sync(self, messages, intent, qwen_client) -> Dict[str, Any]:
-        """同步执行聊天调用"""
+        """同步执行聊天调用 - 使用线程池避免阻塞"""
         import httpx
-        try:
+        import concurrent.futures
+
+        def _call_api():
             response = httpx.post(
                 f"{qwen_client.base_url}/chat/completions",
                 json={"model": qwen_client.model, "messages": messages},
                 headers={"Authorization": f"Bearer {qwen_client.api_key}"},
                 timeout=30.0,
             )
-            result = response.json()
+            return response.json()
+
+        try:
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                future = executor.submit(_call_api)
+                result = future.result(timeout=30)
         except Exception as e:
             result = {"choices": [{"message": {"content": f"Request failed: {e}"}}], "error": str(e)}
         return self._process_response(result, intent)

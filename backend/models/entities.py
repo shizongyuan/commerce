@@ -4,7 +4,7 @@ Production Ready 阶段 - 2026-05-10
 """
 
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
 from sqlalchemy import (
     Column, String, Integer, Float, Boolean, DateTime, ForeignKey,
@@ -26,8 +26,8 @@ class User(Base):
     name = Column(String(100), nullable=False)
     role = Column(String(20), default="viewer")  # admin, operator, viewer
     status = Column(String(20), default="active")  # active, inactive
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     # 关系
     orders = relationship("Order", back_populates="user")
@@ -49,8 +49,8 @@ class Product(Base):
     description = Column(Text)
     images = Column(JSON, default=list)
     status = Column(String(20), default="active")  # active, inactive
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     # 关系
     order_items = relationship("OrderItem", back_populates="product")
@@ -73,8 +73,8 @@ class Order(Base):
     paid_at = Column(DateTime, nullable=True)
     shipped_at = Column(DateTime, nullable=True)
     delivered_at = Column(DateTime, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc), index=True)
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     # 关系
     user = relationship("User", back_populates="orders")
@@ -105,7 +105,7 @@ class Conversation(Base):
     agent_id = Column(String(50), nullable=False, index=True)
     visitor_id = Column(String(100), nullable=True, index=True)  # 访客标识（用于未登录用户）
     status = Column(String(20), default="active", index=True)  # active, ended
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc), index=True)
     ended_at = Column(DateTime, nullable=True)
 
     # 关系
@@ -126,7 +126,7 @@ class ConversationMessage(Base):
     role = Column(String(20), nullable=False)  # user, assistant, system
     content = Column(Text, nullable=False)
     meta = Column(JSON, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc), index=True)
 
     # 关系
     conversation = relationship("Conversation", back_populates="messages")
@@ -145,8 +145,8 @@ class AIAgent(Base):
     skills = Column(JSON, default=list)
     status = Column(String(20), default="active")  # active, inactive
     greeting = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
 
 class AgentUserContext(Base):
@@ -160,8 +160,8 @@ class AgentUserContext(Base):
     memory = Column(JSON, default=dict)  # 用户记忆 JSON: {"偏好": "敏感肌", "尺码": "M"}
     context_summary = Column(Text)  # 上下文摘要
     message_count = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc), index=True)
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
     ended_at = Column(DateTime, nullable=True)
 
     __table_args__ = (
@@ -179,5 +179,5 @@ class KnowledgeItem(Base):
     content = Column(Text, nullable=False)
     category = Column(String(50), index=True)  # enterprise, products, operations
     word_count = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))

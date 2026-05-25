@@ -6,7 +6,7 @@ AI 员工上下文路由 - 内存存储版本
 from typing import Optional, Dict, List
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
 
 router = APIRouter()
@@ -74,7 +74,7 @@ def _get_or_create_context_id(agent_id: str, visitor_id: str) -> tuple[str, bool
             return ctx_id, False
     
     # 创建新上下文
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     ctx_id = str(uuid4())
     _contexts[ctx_id] = {
         "id": ctx_id,
@@ -206,7 +206,7 @@ async def update_context_memory(
     
     # 追加记忆
     context["memory"][data.key] = data.value
-    context["updated_at"] = datetime.utcnow()
+    context["updated_at"] = datetime.now(timezone.utc)
     context["message_count"] += 1
     
     return {"memory": context["memory"]}
@@ -226,7 +226,7 @@ async def update_context_memory_batch(
     
     # 批量更新记忆
     context["memory"].update(data.memory)
-    context["updated_at"] = datetime.utcnow()
+    context["updated_at"] = datetime.now(timezone.utc)
     
     return {"memory": context["memory"]}
 
@@ -244,7 +244,7 @@ async def update_context_summary(
         raise HTTPException(status_code=404, detail="Context not found")
     
     context["context_summary"] = summary
-    context["updated_at"] = datetime.utcnow()
+    context["updated_at"] = datetime.now(timezone.utc)
     
     return {"context_summary": context["context_summary"]}
 
@@ -261,8 +261,8 @@ async def end_context(
         raise HTTPException(status_code=404, detail="Context not found")
     
     context["status"] = "ended"
-    context["ended_at"] = datetime.utcnow().isoformat()
-    context["updated_at"] = datetime.utcnow()
+    context["ended_at"] = datetime.now(timezone.utc).isoformat()
+    context["updated_at"] = datetime.now(timezone.utc)
     
     return {"message": "Context ended", "status": "ended"}
 
