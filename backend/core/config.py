@@ -27,9 +27,6 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60 * 24 * 7  # 7 days
 
-    # Admin - MUST be set via environment variable, no default
-    admin_password: Optional[str] = None
-
     # Qwen API
     qwen_api_key: Optional[str] = None
     qwen_model: str = "qwen3.5plus"
@@ -51,8 +48,8 @@ class Settings(BaseSettings):
 
     @property
     def admin_password(self) -> str:
-        """Get admin password from environment or settings, raise error if not set"""
-        password = os.environ.get("ADMIN_PASSWORD") or self.admin_password
+        """Get admin password from environment, raise error if not set"""
+        password = os.environ.get("ADMIN_PASSWORD")
         if not password:
             raise RuntimeError(
                 "ADMIN_PASSWORD environment variable is not set. "

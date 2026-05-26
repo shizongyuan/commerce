@@ -51,9 +51,8 @@ def _build_avatar_url(avatar_path: str) -> str:
     if avatar_path.startswith("/avatars/"):
         return f"{base_url}{avatar_path}"
     elif avatar_path.startswith("/images/agents/"):
-        # 前端默认头像使用 website 端口
-        website_port = 3001 if settings.server_port == 8004 else 3000
-        return f"http://{settings.server_host}:{website_port}{avatar_path}"
+        # 使用实际域名，避免 localhost
+        return f"https://work.muruai.cn{avatar_path}"
     return avatar_path
 
 
