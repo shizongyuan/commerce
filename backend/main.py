@@ -21,19 +21,50 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # 启动时初始化
+    # 启动时初始化（不阻塞等待连接）
+    import asyncio
+    # 仅初始化 Qwen client，不建立连接
     _ = qwen_client.client
-    await cache.connect()
-    try:
-        await init_db()
-    except Exception as e:
-        logger.warning(f"Database init warning: {e}")
+
+    # 仅在配置了数据库/Redis 时才尝试连接
+    if settings.database_url:
+        asyncio.create_task(safe_connect(cache, "Redis"))
+        asyncio.create_task(safe_init_db())
+
     yield
     # 关闭时清理
     await cache.close()
     await qwen_client.close()
     await close_db()
     logger.info("Application shutdown complete")
+
+
+async def safe_connect(cache, name: str):
+    """安全连接缓存，不阻塞启动"""
+    import asyncio
+    if not settings.redis_url:
+        return
+    try:
+        await asyncio.wait_for(cache.connect(), timeout=3.0)
+        logger.info(f"{name} connected")
+    except asyncio.TimeoutError:
+        logger.warning(f"{name} connection timed out, continuing without cache")
+    except Exception as e:
+        logger.warning(f"{name} connection failed: {e}, continuing without cache")
+
+
+async def safe_init_db():
+    """安全初始化数据库，不阻塞启动"""
+    import asyncio
+    if not settings.database_url:
+        return
+    try:
+        await asyncio.wait_for(init_db(), timeout=3.0)
+        logger.info("Database initialized")
+    except asyncio.TimeoutError:
+        logger.warning("Database init timed out, continuing without database")
+    except Exception as e:
+        logger.warning(f"Database init failed: {e}, continuing without database")
 
 
 app = FastAPI(
@@ -98,18 +129,19 @@ async def health_check():
     from core.database import engine
     from core.cache import cache
 
-    # Check database connection
-    db_status = "unknown"
-    try:
-        async with engine.connect() as conn:
-            await conn.execute("SELECT 1")
-        db_status = "healthy"
-    except Exception as e:
-        db_status = f"unhealthy: {e}"
-        logger.warning(f"Database health check failed: {e}")
+    # Check database connection (only if configured)
+    db_status = "not_configured"
+    if engine:
+        try:
+            async with engine.connect() as conn:
+                await conn.execute("SELECT 1")
+            db_status = "healthy"
+        except Exception as e:
+            db_status = f"unhealthy: {e}"
+            logger.warning(f"Database health check failed: {e}")
 
     # Check Redis connection
-    cache_status = "unknown"
+    cache_status = "not_configured"
     try:
         if cache._client:
             await cache._client.ping()

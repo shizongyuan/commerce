@@ -437,6 +437,7 @@ export default function WebsiteHome() {
                             width={64}
                             height={64}
                             className="w-full h-full object-cover"
+                            priority
                           />
                           <div className="absolute inset-0 bg-gradient-to-br from-hermes-orange/20 to-transparent" />
                           <div className="absolute bottom-0 right-0 w-5 h-5 bg-green-400 rounded-full border-2 border-[#0a0a0a]" />

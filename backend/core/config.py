@@ -10,11 +10,17 @@ class Settings(BaseSettings):
     debug: bool = False
     api_prefix: str = "/api"
 
-    # Database
-    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/ecommerce_ai"
+    # Database - empty string or not set means disabled
+    @property
+    def database_url(self) -> Optional[str]:
+        val = os.environ.get("DATABASE_URL", "")
+        return val if val else None
 
-    # Redis
-    redis_url: str = "redis://localhost:6379/0"
+    # Redis - empty string or not set means disabled
+    @property
+    def redis_url(self) -> Optional[str]:
+        val = os.environ.get("REDIS_URL", "")
+        return val if val else None
 
     # JWT
     jwt_secret_key: str = secrets.token_urlsafe(32)

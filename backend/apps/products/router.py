@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Optional
 from pydantic import BaseModel, Field
-from core.database import get_db
+from core.database import get_db, DB_AVAILABLE
 from repositories.product import ProductRepository
 from core.cache import cache, CacheKeys, CacheTTL
 from core.auth import get_current_user_id
@@ -85,14 +85,33 @@ class ProductListResponse(BaseModel):
     page_size: int
 
 
-@router.get("", response_model=ProductListResponse, dependencies=[Depends(get_current_user_id)])
+@router.get("", response_model=ProductListResponse)
 async def list_products(
     page: int = 1,
     page_size: int = 20,
     category: Optional[str] = None,
     keyword: Optional[str] = None,
-    db: AsyncSession = Depends(get_db),
 ):
+    # 如果数据库不可用，直接使用 mock 数据
+    if not DB_AVAILABLE:
+        filtered = MOCK_PRODUCTS
+        if category:
+            filtered = [p for p in filtered if p["category"].lower() == category.lower()]
+        if keyword:
+            filtered = [p for p in filtered if keyword.lower() in p["name"].lower()]
+
+        total = len(filtered)
+        start = (page - 1) * page_size
+        end = start + page_size
+        items = [ProductResponse(**p) for p in filtered[start:end]]
+
+        return ProductListResponse(
+            items=items,
+            total=total,
+            page=page,
+            page_size=page_size,
+        )
+
     # Try cache first (with error handling)
     cache_key = CacheKeys.product_list(category, page)
     try:
@@ -104,6 +123,10 @@ async def list_products(
 
     # Try database
     try:
+        db = await get_db()
+        if db is None:
+            raise Exception("Database not available")
+
         repo = ProductRepository(db)
         skip = (page - 1) * page_size
 
@@ -149,32 +172,24 @@ async def list_products(
 
     except Exception as e:
         logger.error(f"Database query failed, falling back to mock data: {e}")
-        # Log the error but still serve mock data for development
-        if settings.debug:
-            # In debug mode, show mock data
-            filtered = MOCK_PRODUCTS
-            if category:
-                filtered = [p for p in filtered if p["category"].lower() == category.lower()]
-            if keyword:
-                filtered = [p for p in filtered if keyword.lower() in p["name"].lower()]
+        # Fallback to mock data
+        filtered = MOCK_PRODUCTS
+        if category:
+            filtered = [p for p in filtered if p["category"].lower() == category.lower()]
+        if keyword:
+            filtered = [p for p in filtered if keyword.lower() in p["name"].lower()]
 
-            total = len(filtered)
-            start = (page - 1) * page_size
-            end = start + page_size
-            items = [ProductResponse(**p) for p in filtered[start:end]]
+        total = len(filtered)
+        start = (page - 1) * page_size
+        end = start + page_size
+        items = [ProductResponse(**p) for p in filtered[start:end]]
 
-            return ProductListResponse(
-                items=items,
-                total=total,
-                page=page,
-                page_size=page_size,
-            )
-        else:
-            # Production: return service unavailable
-            raise HTTPException(
-                status_code=503,
-                detail="Service temporarily unavailable. Please try again later.",
-            )
+        return ProductListResponse(
+            items=items,
+            total=total,
+            page=page,
+            page_size=page_size,
+        )
 
 
 @router.get("/{product_id}", response_model=ProductResponse, dependencies=[Depends(get_current_user_id)])

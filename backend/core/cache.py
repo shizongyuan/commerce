@@ -16,6 +16,8 @@ class RedisCache:
 
     async def connect(self):
         """连接 Redis"""
+        if not settings.redis_url:
+            return
         self._client = redis.from_url(
             settings.redis_url,
             encoding="utf-8",
