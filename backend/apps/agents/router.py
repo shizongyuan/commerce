@@ -110,7 +110,7 @@ async def upload_avatar(file: UploadFile = File(...)):
 async def get_avatar(filename: str):
     """获取头像图片"""
     # 防止路径遍历攻击
-    if ".." in filename or filename.startswith("/") or "/" in filename:
+    if ".." in filename or filename.startswith("/") or "\\" in filename or "/" in filename:
         raise HTTPException(status_code=400, detail="Invalid filename")
     filepath = os.path.join(AVATARS_DIR, filename)
     if not os.path.exists(filepath):

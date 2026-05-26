@@ -73,7 +73,7 @@ function ChatContent() {
           setAgents(apiAgents);
         }
       })
-      .catch(() => {});
+      .catch((err) => console.warn("Failed to fetch agents:", err));
   }, []);
 
   // Update current agent when agentId changes

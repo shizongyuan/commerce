@@ -128,13 +128,14 @@ async def global_exception_handler(request: Request, exc: Exception):
 async def health_check():
     from core.database import engine
     from core.cache import cache
+    from sqlalchemy import text
 
     # Check database connection (only if configured)
     db_status = "not_configured"
     if engine:
         try:
             async with engine.connect() as conn:
-                await conn.execute("SELECT 1")
+                await conn.execute(text("SELECT 1"))
             db_status = "healthy"
         except Exception as e:
             db_status = f"unhealthy: {e}"
@@ -167,6 +168,7 @@ from apps.analytics.router import router as analytics_router
 from apps.analytics.report_router import router as report_router
 from apps.auth.router import router as auth_router
 from apps.context.router import router as context_router
+from apps.contact.router import router as contact_router
 
 app.include_router(auth_router, prefix=settings.api_prefix, tags=["auth"])
 app.include_router(products_router, prefix=f"{settings.api_prefix}/products", tags=["products"])
@@ -176,6 +178,7 @@ app.include_router(knowledge_router, prefix=f"{settings.api_prefix}/knowledge", 
 app.include_router(analytics_router, prefix=f"{settings.api_prefix}/analytics", tags=["analytics"])
 app.include_router(report_router, prefix=f"{settings.api_prefix}/reports", tags=["reports"])
 app.include_router(context_router, prefix=f"{settings.api_prefix}/context", tags=["context"])
+app.include_router(contact_router, prefix=settings.api_prefix, tags=["contact"])
 
 # 静态文件服务
 public_dir = os.path.join(os.path.dirname(__file__), "public")

@@ -59,4 +59,4 @@ frontend/website/tsconfig.tsbuildinfo
 项目全面检查报告.md
 
 # Local AI config
-.workbuddy/
+!.workbuddy/

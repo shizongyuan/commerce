@@ -2,7 +2,7 @@
 AI 员工-用户上下文 Repository
 """
 
-from typing import Optional, List
+from typing import Optional, List, Tuple
 from uuid import UUID
 from sqlalchemy import select, update, delete, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -132,7 +132,7 @@ class AgentContextRepository:
 
     async def get_or_create(
         self, agent_id: str, visitor_id: str
-    ) -> tuple[AgentUserContext, bool]:
+    ) -> Tuple[AgentUserContext, bool]:
         """获取或创建上下文"""
         existing = await self.get_by_agent_visitor(agent_id, visitor_id)
         if existing:

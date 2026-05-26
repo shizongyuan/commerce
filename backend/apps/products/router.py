@@ -414,7 +414,7 @@ async def upload_product_image(
 async def get_product_image(filename: str):
     """获取产品图片 - 需要认证"""
     # 防止路径遍历攻击
-    if ".." in filename or filename.startswith("/"):
+    if ".." in filename or filename.startswith("/") or "\\" in filename or "/" in filename:
         raise HTTPException(status_code=400, detail="Invalid filename")
 
     file_path = os.path.join(PRODUCTS_IMAGE_DIR, filename)

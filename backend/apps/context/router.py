@@ -3,7 +3,7 @@ AI 员工上下文路由 - 内存存储版本
 提供对话历史记录和用户记忆管理
 """
 
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from datetime import datetime, timezone
@@ -64,7 +64,7 @@ def _make_key(agent_id: str, visitor_id: str) -> str:
     return f"{agent_id}:{visitor_id}"
 
 
-def _get_or_create_context_id(agent_id: str, visitor_id: str) -> tuple[str, bool]:
+def _get_or_create_context_id(agent_id: str, visitor_id: str) -> Tuple[str, bool]:
     """获取或创建上下文ID"""
     key = _make_key(agent_id, visitor_id)
     

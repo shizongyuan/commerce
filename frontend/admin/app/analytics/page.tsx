@@ -119,7 +119,7 @@ export default function AnalyticsPage() {
         setHourlySales(hourly || []);
         setExtendedTrend(extended);
       })
-      .catch(() => {})
+      .catch((err) => console.warn("Failed to fetch analytics:", err))
       .finally(() => setIsLoading(false));
   }, []);
 

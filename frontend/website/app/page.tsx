@@ -63,7 +63,7 @@ export default function WebsiteHome() {
               </nav>
               <MagneticWrapper strength={0.2}>
                 <a
-                  href="http://localhost:3000"
+                  href={process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3000"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-magnetic btn-glow px-5 py-2.5 bg-gradient-to-r from-hermes-orange to-hermes-orange-light text-white text-sm font-medium rounded-full hover:shadow-lg hover:shadow-hermes-orange/25"

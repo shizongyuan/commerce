@@ -15,6 +15,8 @@ import re
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass, field
 
+MAX_FILE_SIZE = 100 * 1024  # 100KB max per knowledge file
+
 
 @dataclass
 class Intent:
@@ -81,6 +83,9 @@ class KnowledgeBase:
                     try:
                         with open(filepath, "r", encoding="utf-8") as f:
                             content = f.read()
+                        if len(content) > MAX_FILE_SIZE:
+                            logger.warning(f"File {relpath} exceeds max size, skipping")
+                            continue
                         self._cache[relpath] = content
                     except Exception as e:
                         logger.warning(f"Failed to read knowledge file {relpath}: {e}")

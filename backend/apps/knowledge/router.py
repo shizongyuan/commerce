@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 KNOWLEDGE_BASE = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "agents", "knowledge")
+MAX_FILE_SIZE = 100 * 1024  # 100KB max per file
 
 
 class KnowledgeItem(BaseModel):
@@ -42,6 +43,9 @@ def search_knowledge(query: str, max_results: int = 5) -> List[KnowledgeItem]:
                 try:
                     with open(filepath, "r", encoding="utf-8") as f:
                         content = f.read()
+                    if len(content) > MAX_FILE_SIZE:
+                        logger.warning(f"File {filepath} exceeds max size, skipping")
+                        continue
 
                     # Simple keyword matching in title and first 500 chars
                     title = file.replace(".md", "").replace("_", " ").title()

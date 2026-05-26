@@ -69,6 +69,19 @@ export const apiClient = {
   async getProduct(id: string): Promise<Product> {
     return request<Product>(`/api/products/${id}`);
   },
+
+  async submitContact(data: {
+    name: string;
+    email: string;
+    phone?: string;
+    reason: string;
+    message: string;
+  }): Promise<{ success: boolean; message: string }> {
+    return request<{ success: boolean; message: string }>("/api/contact", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  },
 };
 
 export type { Product, ProductListResponse };
