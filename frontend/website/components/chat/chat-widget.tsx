@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { X, Minimize2, Send, Paperclip, Image as ImageIcon } from "lucide-react";
+import { API_CONFIG } from "@/lib/config";
 
 interface Message {
   role: "user" | "assistant";
@@ -35,10 +36,8 @@ export function ChatWidget({ defaultOpen = false }: ChatWidgetProps) {
     setInput("");
     setIsLoading(true);
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
-
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/send`, {
+      const response = await fetch(`${API_CONFIG.API_URL}/api/chat/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

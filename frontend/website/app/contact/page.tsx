@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, Send, MapPin, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
 import { AnimatedSection } from "@/components/animated-section";
+import { API_CONFIG } from "@/lib/config";
 
 const contactReasons = [
   { value: "product", label: "产品咨询", icon: "🧴" },
@@ -35,8 +36,7 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
-      const res = await fetch(`${API_BASE_URL}/api/contact`, {
+      const res = await fetch(`${API_CONFIG.API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

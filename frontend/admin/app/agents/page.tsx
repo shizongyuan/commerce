@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Bot, Edit, Eye, Power, Plus, Save, X, Trash2 } from "lucide-react";
 import { agentsApi, Agent, API_URL } from "@/lib/api-client";
+import { getChatUrl } from "@/lib/config";
 import { ErrorBoundary, toast } from "@/components/ui";
 import { getCookie } from "@/lib/cookies";
 
@@ -281,8 +282,7 @@ function AgentsContent() {
                 </button>
                 <button
                   onClick={() => {
-                    const chatUrl = `${window.location.origin.replace(":3000", ":3001")}/chat?agent=${encodeURIComponent(agent.id)}`;
-                    window.open(chatUrl, "_blank");
+                    window.open(getChatUrl(agent.id), "_blank");
                   }}
                   className="p-2 text-apple-gray-2 hover:text-hermes-orange transition-colors"
                   title="与该员工对话"

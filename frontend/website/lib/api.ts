@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
+import { API_CONFIG } from "@/lib/config";
 
 interface Product {
   id: string;
@@ -25,7 +25,7 @@ async function request<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${API_CONFIG.API_URL}${endpoint}`;
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -44,7 +44,7 @@ async function request<T>(
 export function getImageUrl(path: string): string {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return `${API_BASE_URL}${path}`;
+  return `${API_CONFIG.API_URL}${path}`;
 }
 
 export const apiClient = {

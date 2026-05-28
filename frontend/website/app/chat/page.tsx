@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { MessageCircle, Send, ChevronLeft, Bot, User } from "lucide-react";
 import { AnimatedSection } from "@/components/animated-section";
+import { API_CONFIG } from "@/lib/config";
 
 interface Agent {
   id: string;
@@ -59,8 +60,7 @@ function ChatContent() {
 
   // Fetch agents from API
   useEffect(() => {
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
-    fetch(`${API_BASE_URL}/api/agents`)
+    fetch(`${API_CONFIG.API_URL}/api/agents`)
       .then((res) => res.json())
       .then((data) => {
         if (data.items && data.items.length > 0) {
@@ -103,10 +103,8 @@ function ChatContent() {
     // Use messagesRef to avoid stale closure
     const currentMessages = [...messagesRef.current, userMessage];
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
-
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat/send`, {
+      const response = await fetch(`${API_CONFIG.API_URL}/api/chat/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

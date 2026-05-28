@@ -5,7 +5,9 @@
 
 import { getCookie } from "./cookies";
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
+import { API_CONFIG } from "@/lib/config";
+
+export const API_URL = API_CONFIG.API_URL;
 
 // API Error class
 export class ApiError extends Error {

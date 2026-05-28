@@ -1,14 +1,14 @@
 // 后台管理 API 配置
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
+import { API_CONFIG } from "./config";
 
 export const api = {
-  baseUrl: API_BASE_URL,
+  baseUrl: API_CONFIG.API_URL,
   endpoints: {
-    products: `${API_BASE_URL}/api/products`,
-    agents: `${API_BASE_URL}/api/agents`,
-    analytics: `${API_BASE_URL}/api/analytics`,
-    chat: `${API_BASE_URL}/api/chat`,
-    knowledge: `${API_BASE_URL}/api/knowledge`,
+    products: `${API_CONFIG.API_URL}/api/products`,
+    agents: `${API_CONFIG.API_URL}/api/agents`,
+    analytics: `${API_CONFIG.API_URL}/api/analytics`,
+    chat: `${API_CONFIG.API_URL}/api/chat`,
+    knowledge: `${API_CONFIG.API_URL}/api/knowledge`,
   },
 };
 

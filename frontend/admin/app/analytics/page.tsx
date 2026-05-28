@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { AlertTriangle, TrendingUp, Package, MessageCircle, MapPin, CreditCard, Clock, ShoppingCart } from "lucide-react";
+import { TrendingUp, ShoppingCart, MessageCircle, AlertTriangle, Clock, MapPin, CreditCard } from "lucide-react";
+import { API_CONFIG } from "@/lib/config";
 
 interface SalesData {
   today_revenue: number;
@@ -93,19 +94,17 @@ export default function AnalyticsPage() {
 
   const maxFunnelValue = (funnelData || []).length > 0 ? (funnelData[0]?.count || 1) : 1;
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
-
   useEffect(() => {
     Promise.all([
       // 获取销售数据
-      fetch(`${API_BASE_URL}/api/analytics/dashboard`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/dashboard`).then((r) => r.json()),
       // 获取其他数据
-      fetch(`${API_BASE_URL}/api/analytics/orders/distribution`).then((r) => r.json()),
-      fetch(`${API_BASE_URL}/api/analytics/orders/region`).then((r) => r.json()),
-      fetch(`${API_BASE_URL}/api/analytics/orders/payment`).then((r) => r.json()),
-      fetch(`${API_BASE_URL}/api/analytics/sales/funnel`).then((r) => r.json()),
-      fetch(`${API_BASE_URL}/api/analytics/sales/hourly`).then((r) => r.json()),
-      fetch(`${API_BASE_URL}/api/analytics/sales/trend/extended?days=30`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/orders/distribution`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/orders/region`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/orders/payment`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/sales/funnel`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/sales/hourly`).then((r) => r.json()),
+      fetch(`${API_CONFIG.API_URL}/api/analytics/sales/trend/extended?days=30`).then((r) => r.json()),
     ])
       .then(([dashboard, dist, region, payment, funnel, hourly, extended]) => {
         setSales(dashboard.sales);
@@ -207,9 +206,8 @@ export default function AnalyticsPage() {
                   </div>
                   <div className="h-48 flex items-end gap-1">
                     {(extendedTrend.items || []).map((item, idx) => {
-                      const items = extendedTrend.items || [];
-                      const maxRev = Math.max(...items.map((i) => i.revenue));
-                      const height = (item.revenue / maxRev) * 100;
+                      const maxRev = (extendedTrend.items || []).reduce((max, i) => Math.max(max, i.revenue), 0);
+                      const height = maxRev > 0 ? (item.revenue / maxRev) * 100 : 0;
                       return (
                         <div
                           key={idx}
@@ -238,10 +236,10 @@ export default function AnalyticsPage() {
                   {hourlySales && hourlySales.length > 0 ? (
                     <div className="space-y-4">
                       <div className="h-32 flex items-end gap-0.5">
-                        {hourlySales.map((item, idx) => {
-                          const items = hourlySales || [];
-                          const maxRev = items.length > 0 ? Math.max(...items.map((i) => i.revenue)) : 1;
-                          const height = (item.revenue / maxRev) * 100;
+                        {(() => {
+                          const maxRev = hourlySales.reduce((max, i) => Math.max(max, i.revenue), 0);
+                          return hourlySales.map((item, idx) => {
+                            const height = maxRev > 0 ? (item.revenue / maxRev) * 100 : 0;
                           return (
                             <div
                               key={idx}
@@ -250,7 +248,8 @@ export default function AnalyticsPage() {
                               title={`${item.hour}:00: ¥${item.revenue.toFixed(2)}`}
                             />
                           );
-                        })}
+                        });
+                        })()}
                       </div>
                       <div className="flex justify-between text-xs text-apple-gray-2">
                         <span>9:00</span>

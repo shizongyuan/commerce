@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, ReactNode, useState, useEffect, useRef } from "react";
+import { API_CONFIG } from "@/lib/config";
 
 // Toast notification system
 interface Toast {
@@ -233,7 +234,7 @@ export const CHART_COLORS = {
   default: ["#E65C00", "#FF8533", "#D4AF37", "#86868B", "#0070F3"],
 } as const;
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8004";
+export const API_URL = API_CONFIG.API_URL;
 
 // Lazy Image Component with loading and error states
 interface LazyImageProps {

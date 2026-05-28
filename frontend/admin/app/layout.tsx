@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { AuthProvider, useAuth } from "@/lib/auth";
 import { ToastContainer } from "@/components/ui";
+import { API_CONFIG } from "@/lib/config";
 
 const navItems = [
   { href: "/dashboard", label: "仪表盘", icon: LayoutDashboard },
@@ -93,7 +94,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="px-3 py-4 border-t border-apple-gray-3 space-y-1">
           <a
-            href="http://localhost:3001"
+            href={API_CONFIG.WEBSITE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-apple-gray-2 hover:bg-apple-gray-4 hover:text-apple-gray-1 transition-colors"
