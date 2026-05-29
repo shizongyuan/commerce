@@ -29,7 +29,7 @@
 
 ## 项目简介
 
-**焕美严选**是一个面向电商场景的企业 AI 管理平台，基于通义千问（Qwen3.5 Plus）大语言模型，实现了从客户咨询、订单处理、售后服务到数据分析的全链路智能化。
+**焕美严选**是一个面向电商场景的企业 AI 管理平台，基于大语言模型（LLM），实现了从客户咨询、订单处理、售后服务到数据分析的全链路智能化。
 
 平台核心价值：
 - **降低人力成本**：AI 员工 7×24 小时在线，无需人工接待
@@ -127,7 +127,7 @@ Reviewer（审查）→ 质量检查，格式校验
 | **后端框架** | Python FastAPI | 原生异步支持，类型安全 |
 | **数据库** | PostgreSQL 15+ (asyncpg) | 关系型数据存储 |
 | **缓存** | Redis 7+ (aioredis) | 热点数据缓存、会话管理 |
-| **AI 模型** | Qwen3.5 Plus | 阿里云通义千问 |
+| **AI 模型** | LLM (通义千问/GPT/Claude 等) | 大语言模型，支持流式推理 |
 | **状态管理** | Zustand + React Query | 前端全局状态 + 服务端状态 |
 | **图表** | Recharts | 数据可视化 |
 | **ORM** | SQLAlchemy 2.0 (async) | 异步数据库访问 |
@@ -163,7 +163,7 @@ Reviewer（审查）→ 质量检查，格式校验
 │                      Repository 层                               │
 │              ProductRepo  │  AgentRepo  │  OrderRepo              │
 ├─────────────────────────────────────────────────────────────────┤
-│  PostgreSQL (asyncpg)  │  Redis (aioredis)  │  Qwen API (httpx)   │
+│  PostgreSQL (asyncpg)  │  Redis (aioredis)  │  LLM API (httpx)   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -195,7 +195,7 @@ commerce/
 │   ├── main.py                     # FastAPI 入口
 │   ├── core/                       # 核心模块
 │   │   ├── config.py                # Pydantic Settings
-│   │   ├── ai_client.py            # 通义千问 API 客户端
+│   │   ├── ai_client.py            # AI 模型 API 客户端
 │   │   ├── database.py             # PostgreSQL 异步连接
 │   │   └── cache.py                # Redis 缓存服务
 │   ├── models/                      # SQLAlchemy 实体（8 张表）
@@ -262,7 +262,7 @@ commerce/
     ↓
 构建 System Prompt（动态注入知识 + 技能描述）
     ↓
-调用 Qwen API（流式响应）→ 返回用户
+调用 LLM API（流式响应）→ 返回用户
 ```
 
 ### 技能工作流
