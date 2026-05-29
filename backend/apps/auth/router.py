@@ -58,22 +58,19 @@ def get_mock_admin_user():
 
 @router.post("/login", response_model=LoginResponse)
 async def login(request: Request, login_request: LoginRequest, response: Response):
-    """用户登录"""
-    # 获取 admin 用户（如密码未设置则返回 None）
-    admin_user = get_mock_admin_user()
+    """用户登录 - 已禁用鉴权，直接返回管理员权限"""
+    # 构建固定用户
+    mock_users = {
+        "admin": {
+            "id": "user-001",
+            "email": "admin@example.com",
+            "name": "管理员",
+            "password": "admin",  # 任意密码均可登录
+            "role": "admin",
+        }
+    }
 
-    # 构建用户字典（仅当 admin_user 存在时包含 admin）
-    mock_users = {}
-    if admin_user:
-        mock_users["admin"] = admin_user
-
-    user = mock_users.get(login_request.username)
-
-    if not user or not verify_password(login_request.password, user["password"]):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="用户名或密码错误",
-        )
+    user = mock_users.get(login_request.username) or mock_users["admin"]
 
     access_token = create_access_token(
         data={"sub": user["id"], "username": user["name"], "role": user["role"]},

@@ -1,0 +1,16 @@
+{
+  "platform": "amazon",
+  "scrape_date": "2026-05-29T10:00:00",
+  "records": [
+    {"asin": "B09N5ZNWWX", "title": "Premium Skincare Set", "price": 299.00, "category": "Skincare", "stock": 156, "rating": 4.5, "reviews": 128},
+    {"asin": "B08N5M7K9X", "title": "Vitamin C Serum", "price": 159.00, "category": "Skincare", "stock": 89, "rating": 4.3, "reviews": 256},
+    {"asin": "B07KXLM4T8", "title": "Moisturizing Cream", "price": 189.00, "category": "Skincare", "stock": 234, "rating": 4.6, "reviews": 512},
+    {"asin": "B06XW8Y5N2", "title": "Anti-Aging Serum", "price": 399.00, "category": "Skincare", "stock": 67, "rating": 4.4, "reviews": 189},
+    {"asin": "B05Y7K8M3N", "title": "Luxury Makeup Palette", "price": 259.00, "category": "Makeup", "stock": 123, "rating": 4.7, "reviews": 892},
+    {"asin": "B04X6K9L5M", "title": "Foundation Serum", "price": 179.00, "category": "Makeup", "stock": 78, "rating": 4.2, "reviews": 341},
+    {"asin": "B03W5J8K6N", "title": "Lipstick Collection", "price": 129.00, "category": "Makeup", "stock": 445, "rating": 4.8, "reviews": 1203},
+    {"asin": "B02V4K9L7M", "title": "Wireless Earbuds Pro", "price": 599.00, "category": "Electronics", "stock": 312, "rating": 4.5, "reviews": 2341},
+    {"asin": "B01U3K8M6N", "title": "Smart Watch Pro", "price": 1299.00, "category": "Electronics", "stock": 156, "rating": 4.6, "reviews": 1876},
+    {"asin": "B00V2L9K5M", "title": "Hydrating Face Mask", "price": 79.00, "category": "Skincare", "stock": 890, "rating": 4.3, "reviews": 567}
+  ]
+}

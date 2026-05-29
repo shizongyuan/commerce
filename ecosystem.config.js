@@ -10,27 +10,5 @@ module.exports = {
       max_memory_restart: '500M',
       cwd: 'C:/projeck/commerce/backend',
     },
-    {
-      name: 'commerce-admin',
-      script: 'node_modules\\next\\dist\\bin\\next',
-      args: 'start -p 3000',
-      cwd: 'C:/projeck/commerce/frontend/admin',
-      instances: 1,
-      exec_mode: 'fork',
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '500M',
-    },
-    {
-      name: 'commerce-website',
-      script: 'node_modules\\next\\dist\\bin\\next',
-      args: 'start -p 3001',
-      cwd: 'C:/projeck/commerce/frontend/website',
-      instances: 1,
-      exec_mode: 'fork',
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '500M',
-    }
   ]
 };

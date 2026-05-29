@@ -1,0 +1,16 @@
+{
+  "platform": "jd",
+  "scrape_date": "2026-05-29T10:00:00",
+  "records": [
+    {"sku": "JD10001", "title": "华为Mate60 Pro手机", "price": 6999.00, "category": "数码", "stock": 58, "rating": 4.8, "reviews": 15632},
+    {"sku": "JD10002", "title": "小米智能手环9 Pro", "price": 299.00, "category": "数码", "stock": 234, "rating": 4.6, "reviews": 8934},
+    {"sku": "JD10003", "title": "海尔变频冰箱一级能效", "price": 3299.00, "category": "家电", "stock": 45, "rating": 4.7, "reviews": 4567},
+    {"sku": "JD10004", "title": "耐克Air Jordan篮球鞋", "price": 1499.00, "category": "运动", "stock": 178, "rating": 4.5, "reviews": 2341},
+    {"sku": "JD10005", "title": "SK-II神仙水护肤套装", "price": 1199.00, "category": "美妆", "stock": 89, "rating": 4.9, "reviews": 15678},
+    {"sku": "JD10006", "title": "戴森V15吸尘器", "price": 4899.00, "category": "家电", "stock": 34, "rating": 4.8, "reviews": 3456},
+    {"sku": "JD10007", "title": "联想拯救者游戏本", "price": 8999.00, "category": "数码", "stock": 67, "rating": 4.7, "reviews": 5678},
+    {"sku": "JD10008", "title": "农夫山泉桶装水15L", "price": 28.00, "category": "食品", "stock": 1234, "rating": 4.3, "reviews": 456},
+    {"sku": "JD10009", "title": "松下洗碗机嵌入式", "price": 4599.00, "category": "家电", "stock": 23, "rating": 4.6, "reviews": 1234},
+    {"sku": "JD10010", "title": "雅诗兰黛小棕瓶精华", "price": 899.00, "category": "美妆", "stock": 156, "rating": 4.8, "reviews": 9876}
+  ]
+}

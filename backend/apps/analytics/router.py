@@ -118,18 +118,18 @@ def generate_mock_data():
     )
 
 
-@router.get("/dashboard", response_model=AnalyticsDashboard, dependencies=[Depends(get_current_user_id)])
+@router.get("/dashboard", response_model=AnalyticsDashboard)
 async def get_dashboard(db: AsyncSession = Depends(get_db)):
     return generate_mock_data()
 
 
-@router.get("/sales/summary", response_model=SalesSummary, dependencies=[Depends(get_current_user_id)])
+@router.get("/sales/summary", response_model=SalesSummary)
 async def get_sales_summary(db: AsyncSession = Depends(get_db)):
     data = generate_mock_data()
     return data.sales
 
 
-@router.get("/sales/trend", response_model=List[SalesTrend], dependencies=[Depends(get_current_user_id)])
+@router.get("/sales/trend", response_model=List[SalesTrend])
 async def get_sales_trend(
     days: int = 7,
     db: AsyncSession = Depends(get_db),
@@ -138,13 +138,13 @@ async def get_sales_trend(
     return data.sales_trend
 
 
-@router.get("/products/ranking", response_model=List[ProductRanking], dependencies=[Depends(get_current_user_id)])
+@router.get("/products/ranking", response_model=List[ProductRanking])
 async def get_product_ranking(db: AsyncSession = Depends(get_db)):
     data = generate_mock_data()
     return data.product_ranking
 
 
-@router.get("/alerts", response_model=List[AlertItem], dependencies=[Depends(get_current_user_id)])
+@router.get("/alerts", response_model=List[AlertItem])
 async def get_alerts(db: AsyncSession = Depends(get_db)):
     data = generate_mock_data()
     return data.alerts
@@ -183,7 +183,7 @@ class SalesHourly(BaseModel):
     orders: int
 
 
-@router.get("/orders/distribution", response_model=List[OrderStatusDistribution], dependencies=[Depends(get_current_user_id)])
+@router.get("/orders/distribution", response_model=List[OrderStatusDistribution])
 async def get_order_distribution(db: AsyncSession = Depends(get_db)):
     """订单状态分布"""
     return [
@@ -196,7 +196,7 @@ async def get_order_distribution(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/orders/region", response_model=List[RegionRanking], dependencies=[Depends(get_current_user_id)])
+@router.get("/orders/region", response_model=List[RegionRanking])
 async def get_order_region(db: AsyncSession = Depends(get_db)):
     """订单地域分布 TOP5"""
     return [
@@ -208,7 +208,7 @@ async def get_order_region(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/orders/payment", response_model=List[PaymentMethodDistribution], dependencies=[Depends(get_current_user_id)])
+@router.get("/orders/payment", response_model=List[PaymentMethodDistribution])
 async def get_payment_distribution(db: AsyncSession = Depends(get_db)):
     """支付方式分布"""
     return [
@@ -218,7 +218,7 @@ async def get_payment_distribution(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/sales/funnel", response_model=List[ConversionFunnel], dependencies=[Depends(get_current_user_id)])
+@router.get("/sales/funnel", response_model=List[ConversionFunnel])
 async def get_conversion_funnel(db: AsyncSession = Depends(get_db)):
     """转化率漏斗"""
     return [
@@ -229,7 +229,7 @@ async def get_conversion_funnel(db: AsyncSession = Depends(get_db)):
     ]
 
 
-@router.get("/sales/hourly", response_model=List[SalesHourly], dependencies=[Depends(get_current_user_id)])
+@router.get("/sales/hourly", response_model=List[SalesHourly])
 async def get_sales_hourly(
     date: str = None,
     db: AsyncSession = Depends(get_db),
@@ -261,7 +261,7 @@ class AmazonTop10Item(BaseModel):
     image_url: str
 
 
-@router.get("/category-top10", response_model=List[AmazonTop10Item], dependencies=[Depends(get_current_user_id)])
+@router.get("/category-top10", response_model=List[AmazonTop10Item])
 async def get_category_top10(
     category: str = "skincare",
     db: AsyncSession = Depends(get_db),
@@ -294,7 +294,7 @@ async def get_category_top10(
     return result
 
 
-@router.get("/sales/trend/extended", response_model=Dict[str, Any], dependencies=[Depends(get_current_user_id)])
+@router.get("/sales/trend/extended", response_model=Dict[str, Any])
 async def get_extended_sales_trend(
     days: int = 30,
     db: AsyncSession = Depends(get_db),

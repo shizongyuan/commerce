@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  basePath: "",
+  assetPrefix: "",
   images: {
-    domains: ["placeholder.com", "via.placeholder.com", "localhost"],
     unoptimized: true,
+    domains: ["placeholder.com", "via.placeholder.com", "localhost"],
   },
 };
 

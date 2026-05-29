@@ -24,11 +24,24 @@ frontend/admin/.next/
 frontend/website/.next/
 frontend/admin/out/
 frontend/website/out/
+frontend/.next/
 .cache/
 
 # Frontend lock files (keep package.json, remove if you want yarn/pnpm only)
 frontend/admin/package-lock.json
 frontend/website/package-lock.json
+frontend/package-lock.json
+
+# Frontend root (old/duplicate structure - migrated to admin/website)
+frontend/app/
+frontend/components/
+frontend/hooks/
+frontend/public/
+frontend/lib/api-client.ts
+frontend/lib/auth-admin.tsx
+frontend/lib/cookies-admin.tsx
+frontend/next-env.d.ts
+frontend/tsconfig.json
 
 # IDE
 .idea/

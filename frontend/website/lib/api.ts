@@ -44,7 +44,8 @@ async function request<T>(
 export function getImageUrl(path: string): string {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return `${API_CONFIG.API_URL}${path}`;
+  // 图片路径如 /products/xxx.webp，直接使用 WEBSITE_URL + path
+  return `${API_CONFIG.WEBSITE_URL}${path}`;
 }
 
 export const apiClient = {
@@ -62,12 +63,12 @@ export const apiClient = {
 
     const query = searchParams.toString();
     return request<ProductListResponse>(
-      `/api/products${query ? `?${query}` : ""}`
+      `/products${query ? `?${query}` : ""}`
     );
   },
 
   async getProduct(id: string): Promise<Product> {
-    return request<Product>(`/api/products/${id}`);
+    return request<Product>(`/products/${id}`);
   },
 
   async submitContact(data: {
@@ -77,7 +78,7 @@ export const apiClient = {
     reason: string;
     message: string;
   }): Promise<{ success: boolean; message: string }> {
-    return request<{ success: boolean; message: string }>("/api/contact", {
+    return request<{ success: boolean; message: string }>("/contact", {
       method: "POST",
       body: JSON.stringify(data),
     });

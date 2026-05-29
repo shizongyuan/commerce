@@ -118,7 +118,7 @@ async def get_avatar(filename: str):
     return FileResponse(filepath)
 
 
-@router.get("", response_model=AgentListResponse, dependencies=[Depends(get_current_user_id)])
+@router.get("", response_model=AgentListResponse)
 async def list_agents(db: AsyncSession = Depends(get_db)):
     agents = get_agents()
     # 补全 avatar URL
@@ -129,7 +129,7 @@ async def list_agents(db: AsyncSession = Depends(get_db)):
     )
 
 
-@router.get("/{agent_id}", response_model=AgentConfig, dependencies=[Depends(get_current_user_id)])
+@router.get("/{agent_id}", response_model=AgentConfig)
 async def get_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
     agents_dict = get_agents_dict()
     agent = agents_dict.get(agent_id)
@@ -139,7 +139,7 @@ async def get_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
     return AgentConfig(**agent)
 
 
-@router.post("", dependencies=[Depends(get_current_user_id)])
+@router.post("")
 async def create_agent(agent: AgentConfig, db: AsyncSession = Depends(get_db)):
     agents = get_agents()
     # 检查 ID 是否已存在
@@ -151,7 +151,7 @@ async def create_agent(agent: AgentConfig, db: AsyncSession = Depends(get_db)):
     return AgentConfig(**agent.model_dump())
 
 
-@router.put("/{agent_id}", dependencies=[Depends(get_current_user_id)])
+@router.put("/{agent_id}")
 async def update_agent(
     agent_id: str,
     agent: AgentConfig,
@@ -166,7 +166,7 @@ async def update_agent(
     raise HTTPException(status_code=404, detail="Agent not found")
 
 
-@router.delete("/{agent_id}", dependencies=[Depends(get_current_user_id)])
+@router.delete("/{agent_id}")
 async def delete_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
     agents = get_agents()
     for i, a in enumerate(agents):
@@ -177,7 +177,7 @@ async def delete_agent(agent_id: str, db: AsyncSession = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Agent not found")
 
 
-@router.get("/{agent_id}/skills", dependencies=[Depends(get_current_user_id)])
+@router.get("/{agent_id}/skills")
 async def get_agent_skills(agent_id: str, db: AsyncSession = Depends(get_db)):
     for a in get_agents():
         if a["id"] == agent_id:
@@ -185,7 +185,7 @@ async def get_agent_skills(agent_id: str, db: AsyncSession = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Agent not found")
 
 
-@router.get("/knowledge/files", dependencies=[Depends(get_current_user_id)])
+@router.get("/knowledge/files")
 async def list_knowledge_files(db: AsyncSession = Depends(get_db)):
     """获取所有可选的知识库文件"""
     from .store import get_all_knowledge_files

@@ -1,0 +1,16 @@
+{
+  "platform": "taobao",
+  "scrape_date": "2026-05-29T10:00:00",
+  "records": [
+    {"item_id": "TB001", "title": "2024新款韩版宽松卫衣", "price": 89.00, "category": "服饰", "sales": 12580, "rating": 4.6},
+    {"item_id": "TB002", "title": "日系复古连衣裙", "price": 159.00, "category": "服饰", "sales": 8934, "rating": 4.5},
+    {"item_id": "TB003", "title": "运动休闲篮球鞋", "price": 299.00, "category": "运动", "sales": 5678, "rating": 4.7},
+    {"item_id": "TB004", "title": "实木餐桌一桌四椅", "price": 1899.00, "category": "家具", "sales": 1234, "rating": 4.8},
+    {"item_id": "TB005", "title": "智能扫地机器人", "price": 1299.00, "category": "家电", "sales": 4567, "rating": 4.4},
+    {"item_id": "TB006", "title": "婴儿纯棉连体衣", "price": 59.00, "category": "母婴", "sales": 23456, "rating": 4.9},
+    {"item_id": "TB007", "title": "韩束玻尿酸保湿面膜50片", "price": 129.00, "category": "美妆", "sales": 8901, "rating": 4.3},
+    {"item_id": "TB008", "title": "小米充电宝20000mAh", "price": 79.00, "category": "数码", "sales": 15678, "rating": 4.6},
+    {"item_id": "TB009", "title": "北欧风落地灯", "price": 359.00, "category": "家居", "sales": 3456, "rating": 4.5},
+    {"item_id": "TB010", "title": "三只松鼠坚果礼盒", "price": 128.00, "category": "食品", "sales": 12345, "rating": 4.7}
+  ]
+}

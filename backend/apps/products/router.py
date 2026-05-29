@@ -192,7 +192,7 @@ async def list_products(
         )
 
 
-@router.get("/{product_id}", response_model=ProductResponse, dependencies=[Depends(get_current_user_id)])
+@router.get("/{product_id}", response_model=ProductResponse)
 async def get_product(product_id: str, db: AsyncSession = Depends(get_db)):
     # Try cache first
     cache_key = CacheKeys.product(product_id)
@@ -245,7 +245,7 @@ async def get_product(product_id: str, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Failed to fetch product")
 
 
-@router.post("", response_model=ProductResponse, dependencies=[Depends(get_current_user_id)])
+@router.post("", response_model=ProductResponse)
 async def create_product(product: ProductCreate, db: AsyncSession = Depends(get_db)):
     try:
         repo = ProductRepository(db)
@@ -280,7 +280,7 @@ async def create_product(product: ProductCreate, db: AsyncSession = Depends(get_
         return ProductResponse(**new_product)
 
 
-@router.put("/{product_id}", response_model=ProductResponse, dependencies=[Depends(get_current_user_id)])
+@router.put("/{product_id}", response_model=ProductResponse)
 async def update_product(
     product_id: str,
     product: ProductUpdate,
@@ -324,7 +324,7 @@ async def update_product(
         raise HTTPException(status_code=404, detail="Product not found")
 
 
-@router.delete("/{product_id}", dependencies=[Depends(get_current_user_id)])
+@router.delete("/{product_id}")
 async def delete_product(product_id: str, db: AsyncSession = Depends(get_db)):
     try:
         repo = ProductRepository(db)
@@ -362,7 +362,7 @@ PRODUCTS_IMAGE_DIR = os.path.join(
 )
 
 
-@router.post("/upload-image", dependencies=[Depends(get_current_user_id)])
+@router.post("/upload-image")
 async def upload_product_image(
     file: UploadFile = File(...),
 ):
@@ -410,9 +410,9 @@ async def upload_product_image(
     }
 
 
-@router.get("/images/{filename}", dependencies=[Depends(get_current_user_id)])
+@router.get("/images/{filename}")
 async def get_product_image(filename: str):
-    """获取产品图片 - 需要认证"""
+    """获取产品图片 - 公开访问"""
     # 防止路径遍历攻击
     if ".." in filename or filename.startswith("/") or "\\" in filename or "/" in filename:
         raise HTTPException(status_code=400, detail="Invalid filename")

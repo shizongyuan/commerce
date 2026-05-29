@@ -53,7 +53,7 @@ SKILLS_DIR = os.path.join(
 )
 
 
-@router.post("/send", dependencies=[Depends(get_current_user_id)])
+@router.post("/send")
 async def chat(request: ChatRequest, db: AsyncSession = Depends(get_db)):
     """发送消息并获取 AI 回复（带知识库注入和意图识别 + Skill 执行）"""
 
@@ -197,7 +197,7 @@ async def chat_stream_response(request: ChatRequest, db: AsyncSession) -> Stream
     )
 
 
-@router.post("/stream", dependencies=[Depends(get_current_user_id)])
+@router.post("/stream")
 async def chat_stream(request: ChatRequest, db: AsyncSession = Depends(get_db)):
     """流式输出 AI 回复（Server-Sent Events）"""
 
@@ -251,7 +251,7 @@ async def chat_stream(request: ChatRequest, db: AsyncSession = Depends(get_db)):
     )
 
 
-@router.get("/history/{agent_id}", dependencies=[Depends(get_current_user_id)])
+@router.get("/history/{agent_id}")
 async def get_history(
     agent_id: str,
     visitor_id: str = "visitor-001",
@@ -262,7 +262,7 @@ async def get_history(
     return {"items": [], "total": 0}
 
 
-@router.post("/clear", dependencies=[Depends(get_current_user_id)])
+@router.post("/clear")
 async def clear_conversation(
     agent_id: str = "xiaoxue",
     visitor_id: str = "visitor-001",

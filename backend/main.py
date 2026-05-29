@@ -169,6 +169,8 @@ from apps.analytics.report_router import router as report_router
 from apps.auth.router import router as auth_router
 from apps.context.router import router as context_router
 from apps.contact.router import router as contact_router
+from apps.wiki.router import router as wiki_router
+from apps.scraper.router import router as scraper_router
 
 app.include_router(auth_router, prefix=settings.api_prefix, tags=["auth"])
 app.include_router(products_router, prefix=f"{settings.api_prefix}/products", tags=["products"])
@@ -180,6 +182,8 @@ app.include_router(report_router, prefix=f"{settings.api_prefix}/reports", tags=
 app.include_router(context_router, prefix=f"{settings.api_prefix}/context", tags=["context"])
 app.include_router(contact_router, prefix=settings.api_prefix, tags=["contact"])
 
+app.include_router(wiki_router, prefix=f"{settings.api_prefix}/wiki", tags=["wiki"])
+app.include_router(scraper_router, prefix=f"{settings.api_prefix}/scraper", tags=["scraper"])
 # 静态文件服务
 public_dir = os.path.join(os.path.dirname(__file__), "public")
 if os.path.exists(public_dir):

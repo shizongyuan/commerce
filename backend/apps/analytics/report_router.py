@@ -27,7 +27,7 @@ class ReportResponse(BaseModel):
     generated_at: str
 
 
-@router.post("/generate", response_model=ReportResponse, dependencies=[Depends(get_current_user_id)])
+@router.post("/generate", response_model=ReportResponse)
 async def generate_report(
     request: ReportRequest,
     db: AsyncSession = Depends(get_db),
@@ -59,7 +59,7 @@ async def generate_report(
     )
 
 
-@router.get("/latest", dependencies=[Depends(get_current_user_id)])
+@router.get("/latest")
 async def get_latest_report(db: AsyncSession = Depends(get_db)):
     """获取最新生成的几份报告"""
     return {
