@@ -197,26 +197,28 @@ export default function DataSourcesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-semibold text-apple-gray-1 tracking-tight">数据源管理</h1>
+          <h1 className="text-2xl md:text-4xl font-semibold text-apple-gray-1 tracking-tight">数据源管理</h1>
           <p className="text-apple-gray-2 mt-1">配置和管理外部数据源连接</p>
           <p className="text-sm text-apple-gray-2 mt-2 bg-apple-gray-4 inline-block px-3 py-1.5 rounded-lg">
             基于 multi-agent-universal-scraper 多Agent框架，支持自动登录抓取网页数据并导出为JSON/Excel文件
           </p>
         </div>
-        <button
-          onClick={() => setShowScrapeModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-hermes-orange text-white rounded-xl hover:bg-hermes-orange-light transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          抓取数据
-        </button>
-        <button
-          onClick={() => window.open(getChatUrl("data_manager"), "_blank")}
-          className="flex items-center gap-2 px-4 py-2 bg-apple-gray-4 text-apple-gray-1 rounded-xl hover:bg-apple-gray-3 transition-colors"
-        >
-          <Bot className="w-4 h-4" />
-          数据管理
-        </button>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <button
+            onClick={() => setShowScrapeModal(true)}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-hermes-orange text-white rounded-full hover:bg-hermes-orange-light transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            抓取数据
+          </button>
+          <button
+            onClick={() => window.open(getChatUrl("data_manager"), "_blank")}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-hermes-orange to-hermes-orange-light text-white rounded-full hover:shadow-apple transition-all"
+          >
+            <Bot className="w-4 h-4" />
+            问问数据管理
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

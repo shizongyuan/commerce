@@ -224,8 +224,8 @@ function DashboardContent() {
     <div className="space-y-6 animate-fade-slide-in">
       {/* Page Title */}
       <div>
-        <h1 className="text-4xl font-semibold text-apple-gray-1 tracking-tight">欢迎回来</h1>
-        <p className="text-base text-apple-gray-2 mt-1">
+        <h1 className="text-2xl md:text-4xl font-semibold text-apple-gray-1 tracking-tight">欢迎回来</h1>
+        <p className="text-sm md:text-base text-apple-gray-2 mt-1">
           {new Date().toLocaleDateString("zh-CN", {
             year: "numeric",
             month: "long",
@@ -236,7 +236,7 @@ function DashboardContent() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 stagger-children">
         {statCards.map((stat) => {
           const Icon = stat.icon;
           const isPositive = stat.change > 0;
@@ -259,15 +259,15 @@ function DashboardContent() {
                   {displayChange}
                 </span>
               </div>
-              <div className="text-3xl font-bold text-hermes-orange mb-1">{stat.value}</div>
-              <div className="text-xs text-apple-gray-2 font-normal">{stat.label}</div>
+              <div className="text-xl md:text-3xl font-bold text-hermes-orange mb-1">{stat.value}</div>
+              <div className="text-[10px] md:text-xs text-apple-gray-2 font-normal">{stat.label}</div>
             </div>
           );
         })}
       </div>
 
       {/* Charts Row 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-8">
         {/* 30天销售趋势 */}
         <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-apple hover:shadow-apple-lg hover-lift">
           <div className="flex items-center justify-between mb-6">
@@ -323,7 +323,7 @@ function DashboardContent() {
       </div>
 
       {/* Quick Links & Alerts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-8">
         {/* Quick Links */}
         <div className="bg-white rounded-2xl p-6 shadow-apple hover:shadow-apple-lg hover-lift">
           <h2 className="text-xl font-semibold text-apple-gray-1 mb-4">快捷入口</h2>

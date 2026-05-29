@@ -636,7 +636,7 @@ MIT License
 
 ## 联系方式
 
-- 项目维护：Design Team
+- 项目维护：MuruAI Team
 - 技术支持：如有问题请提交 Issue
 
 ---

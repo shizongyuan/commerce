@@ -384,7 +384,7 @@ function ProductModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] bg-black/50 backdrop-blur-sm">
       <div className="bg-white rounded-2xl w-full max-w-lg p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-semibold text-apple-gray-1 mb-6">
           {product ? "编辑产品" : "新增产品"}

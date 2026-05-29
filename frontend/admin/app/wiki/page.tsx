@@ -132,20 +132,22 @@ export default function WikiPage() {
             <h1 className="text-2xl font-semibold text-gray-900">知识库</h1>
             <p className="text-sm text-gray-500 mt-1">管理企业文档，AI 自动整理成知识库</p>
           </div>
-          <button
-            onClick={() => setShowUploadModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-hermes-orange text-white text-sm font-medium rounded-lg hover:bg-hermes-orange-light transition-colors"
-          >
-            <Upload className="w-4 h-4" />
-            上传文档
-          </button>
-          <button
-            onClick={() => window.open(getChatUrl("knowledge_manager"), "_blank")}
-            className="flex items-center gap-2 px-4 py-2 bg-apple-gray-4 text-apple-gray-1 text-sm font-medium rounded-lg hover:bg-apple-gray-3 transition-colors"
-          >
-            <Bot className="w-4 h-4" />
-            知识库管理
-          </button>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <button
+              onClick={() => setShowUploadModal(true)}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-hermes-orange text-white text-sm font-medium rounded-full hover:bg-hermes-orange-light transition-colors"
+            >
+              <Upload className="w-4 h-4" />
+              上传文档
+            </button>
+            <button
+              onClick={() => window.open(getChatUrl("knowledge_manager"), "_blank")}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-hermes-orange to-hermes-orange-light text-white text-sm font-medium rounded-full hover:shadow-apple transition-all"
+            >
+              <Brain className="w-4 h-4" />
+              问问知识库
+            </button>
+          </div>
         </div>
 
         {/* LLM-Wiki 框架介绍 */}

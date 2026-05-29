@@ -3,26 +3,27 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { MessageCircle, ShoppingBag, ChevronRight, Shield, Truck, Gift, Star, Gem, Zap, Headphones, Bot, Instagram, Youtube, MessageSquare } from "lucide-react";
+import { MessageCircle, ShoppingBag, ChevronRight, Shield, Truck, Gift, Star, Gem, Zap, Headphones, Bot, Instagram, Youtube, MessageSquare, Menu, X } from "lucide-react";
 import { useProducts } from "@/hooks/use-products";
 import { getImageUrl } from "@/lib/api";
 import { AnimatedSection, FloatingOrb, MagneticWrapper } from "@/components/animated-section";
 
 const agents = [
-  { id: "xiaoxue", name: "小雪", avatar: "/images/agents/ai_xiaoxue.webp", specialty: "产品咨询 | 订单查询" },
+  { id: "xiaoxue", name: "小雪", avatar: "/images/agents/ai_xiaoxue.webp", specialty: "产品甄选咨询 | 订单查询" },
   { id: "xiaobing", name: "小冰", avatar: "/images/agents/ai_xiaobing.webp", specialty: "物流跟踪 | 售后服务" },
   { id: "xiaoyu", name: "小雨", avatar: "/images/agents/ai_xiaoyu.webp", specialty: "投诉建议 | 优惠活动" },
 ];
 
 const navItems = [
-  { href: "/products", label: "产品", sublabel: "Products" },
+  { href: "/products", label: "产品甄选", sublabel: "Products" },
   { href: "/about", label: "关于我们", sublabel: "About" },
-  { href: "/contact", label: "联系我们", sublabel: "Contact" },
+  { href: "/contact", label: "焕美会员", sublabel: "Contact" },
 ];
 
 export default function WebsiteHome() {
   const { products, isLoading } = useProducts();
   const [scrollY, setScrollY] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,17 +58,57 @@ export default function WebsiteHome() {
                 </Link>
               ))}
             </nav>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 text-apple-gray-1 hover:text-hermes-orange transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
             <a
               href="/admin"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-gradient-to-r from-hermes-orange to-hermes-orange-light text-white text-sm font-medium rounded-full hover:shadow-lg hover:shadow-hermes-orange/25 transition-all duration-300 hover:-translate-y-0.5"
+              className="hidden md:flex px-5 py-2.5 bg-gradient-to-r from-hermes-orange to-hermes-orange-light text-white text-sm font-medium rounded-full hover:shadow-lg hover:shadow-hermes-orange/25 transition-all duration-300 hover:-translate-y-0.5"
             >
               AI平台入口
             </a>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Drawer */}
+      {mobileMenuOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="fixed top-16 right-0 bottom-0 w-72 bg-white z-50 md:hidden shadow-2xl">
+            <nav className="flex flex-col p-6 gap-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group flex flex-col py-3 border-b border-apple-gray-3"
+                >
+                  <span className="text-base text-apple-gray-1 group-hover:text-hermes-orange transition-colors">{item.label}</span>
+                  <span className="text-xs text-apple-gray-2">{item.sublabel}</span>
+                </Link>
+              ))}
+              <a
+                href="/admin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-center justify-center px-5 py-3 bg-gradient-to-r from-hermes-orange to-hermes-orange-light text-white text-sm font-medium rounded-full"
+              >
+                AI平台入口
+              </a>
+            </nav>
+          </div>
+        </>
+      )}
 
       {/* Hero - 品牌故事 */}
       <section ref={heroRef} className="relative min-h-[100vh] flex items-center overflow-hidden bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0f0f0f]">
@@ -103,10 +144,10 @@ export default function WebsiteHome() {
           <div className="absolute top-1/4 right-1/4 w-48 h-48 border border-[#D4AF37]/10 rounded-full animate-rotate-slow" style={{ animationDirection: 'reverse' }} />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-8 lg:px-16 py-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-16 py-12 md:py-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[80vh]">
             {/* Left Content - Brand Story */}
-            <div className="space-y-10">
+            <div className="space-y-6 md:space-y-10">
               {/* Brand Label */}
               <AnimatedSection delay={0}>
                 <div className="flex items-center gap-4 group">
@@ -119,7 +160,7 @@ export default function WebsiteHome() {
 
               {/* Main Title */}
               <AnimatedSection delay={100}>
-                <h1 className="text-5xl md:text-6xl lg:text-8xl font-extralight text-white tracking-tight leading-[1.05]">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extralight text-white tracking-tight leading-[1.05]">
                   <span className="block text-[#E5E5E5] mb-3 animate-reveal-up" style={{ animationDelay: '200ms' }}>焕美</span>
                   <span className="block bg-gradient-to-r from-hermes-orange via-[#FF8533] to-[#D4AF37] bg-clip-text text-transparent text-gradient-animated">
                     严选
@@ -146,14 +187,14 @@ export default function WebsiteHome() {
 
               {/* Stats */}
               <AnimatedSection delay={300}>
-                <div className="flex gap-12 pt-4">
+                <div className="flex gap-6 md:gap-12 pt-4">
                   {[
                     { num: "7+", label: "年品质坚守", suffix: "" },
                     { num: "500", label: "全球好物", suffix: "+" },
                     { num: "24", label: "AI 服务", suffix: "h" },
                   ].map((stat, idx) => (
                     <div key={stat.label} className="text-center lg:text-left group">
-                      <div className="text-4xl md:text-5xl font-extralight bg-gradient-to-r from-hermes-orange to-[#FF8533] bg-clip-text text-transparent transition-all duration-500 group-hover:scale-110">
+                      <div className="text-3xl md:text-4xl lg:text-5xl font-extralight bg-gradient-to-r from-hermes-orange to-[#FF8533] bg-clip-text text-transparent transition-all duration-500 group-hover:scale-110">
                         {stat.num}{stat.suffix}
                       </div>
                       <div className="text-xs text-[#86868B] mt-2 tracking-wider">{stat.label}</div>
@@ -253,7 +294,7 @@ export default function WebsiteHome() {
       <section className="bg-gradient-to-b from-[#FAFAFA] to-white py-16 relative overflow-hidden">
         <div className="absolute inset-0 noise-overlay" />
         <div className="max-w-6xl mx-auto px-6 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
               { icon: Shield, text: "正品保障", desc: "假一赔十" },
               { icon: Truck, text: "极速发货", desc: "下单即发" },
@@ -586,9 +627,9 @@ export default function WebsiteHome() {
               <h4 className="font-semibold text-apple-gray-1 mb-5 text-lg">快速链接</h4>
               <ul className="space-y-3">
                 {[
-                  { href: "/products", label: "产品列表", sublabel: "Products" },
+                  { href: "/products", label: "产品甄选列表", sublabel: "Products" },
                   { href: "/chat", label: "在线咨询", sublabel: "Chat" },
-                  { href: "/contact", label: "联系我们", sublabel: "Contact" },
+                  { href: "/contact", label: "焕美会员", sublabel: "Contact" },
                 ].map((link) => (
                   <li key={link.href}>
                     <Link
@@ -622,19 +663,19 @@ export default function WebsiteHome() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-apple-gray-1 mb-5 text-lg">联系我们</h4>
+              <h4 className="font-semibold text-apple-gray-1 mb-5 text-lg">焕美会员</h4>
               <ul className="space-y-3 text-sm text-apple-gray-2">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-hermes-orange rounded-full" />
-                  客服热线：19310089818
+                <li className="flex flex-col gap-1">
+                  <span className="text-xs text-apple-gray-2/70">客服热线</span>
+                  <span className="font-medium text-apple-gray-1">19310089818</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-hermes-orange rounded-full" />
-                  服务时间：9:00 - 22:00
+                <li className="flex flex-col gap-1">
+                  <span className="text-xs text-apple-gray-2/70">服务时间</span>
+                  <span className="font-medium text-apple-gray-1">9:00 - 22:00</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-hermes-orange rounded-full" />
-                  邮箱：muru2021@163.com
+                <li className="flex flex-col gap-1">
+                  <span className="text-xs text-apple-gray-2/70">邮箱</span>
+                  <span className="font-medium text-apple-gray-1">muru2021@163.com</span>
                 </li>
               </ul>
             </div>

@@ -75,14 +75,14 @@ function AppLayout({ children }: { children: React.ReactNode }) {
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        <div className="px-6 py-5 border-b border-apple-gray-3 flex items-center justify-between">
+        <div className="px-4 md:px-6 py-4 md:py-5 border-b border-apple-gray-3 flex items-center justify-between">
           <Link
             href="/dashboard"
-            className="text-lg font-semibold text-apple-gray-1 tracking-tight"
+            className="text-base md:text-lg font-semibold text-apple-gray-1 tracking-tight"
             onClick={() => setSidebarOpen(false)}
           >
             <span className="block">焕美严选</span>
-            <span className="block text-xs font-normal tracking-wider text-apple-gray-2">HUANMEI</span>
+            <span className="block text-[10px] md:text-xs font-normal tracking-wider text-apple-gray-2">HUANMEI</span>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -91,25 +91,25 @@ function AppLayout({ children }: { children: React.ReactNode }) {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-2 md:px-3 py-3 md:py-4 space-y-0.5 md:space-y-1 overflow-y-auto">
           <NavItems onClick={() => setSidebarOpen(false)} />
         </nav>
-        <div className="px-3 py-4 border-t border-apple-gray-3 space-y-1">
+        <div className="px-2 md:px-3 py-3 md:py-4 border-t border-apple-gray-3 space-y-0.5 md:space-y-1">
           <a
             href={API_CONFIG.WEBSITE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-apple-gray-2 hover:bg-apple-gray-4 hover:text-apple-gray-1 transition-colors"
+            className="flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 md:py-2.5 rounded-lg md:rounded-xl text-xs md:text-sm text-apple-gray-2 hover:bg-apple-gray-4 hover:text-apple-gray-1 transition-colors"
           >
-            <Settings className="w-5 h-5" />
-            返回官网
+            <Settings className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="hidden sm:inline">返回官网</span>
           </a>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-apple-gray-2 hover:bg-red-50 hover:text-red-500 transition-colors"
+            className="w-full flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 md:py-2.5 rounded-lg md:rounded-xl text-xs md:text-sm text-apple-gray-2 hover:bg-red-50 hover:text-red-500 transition-colors"
           >
-            <LogOut className="w-5 h-5" />
-            退出登录
+            <LogOut className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="hidden sm:inline">退出登录</span>
           </button>
         </div>
       </aside>
@@ -154,14 +154,14 @@ function NavItems({ onClick }: { onClick?: () => void }) {
             key={item.href}
             href={item.href}
             onClick={onClick}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+            className={`flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 md:py-2.5 rounded-lg md:rounded-xl text-xs md:text-sm transition-colors ${
               isActive
                 ? "bg-hermes-orange-pale text-hermes-orange font-medium"
                 : "text-apple-gray-2 hover:bg-apple-gray-4 hover:text-apple-gray-1"
             }`}
           >
-            <Icon className="w-5 h-5" />
-            {item.label}
+            <Icon className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="truncate">{item.label}</span>
           </Link>
         );
       })}

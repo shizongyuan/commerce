@@ -2,6 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'commerce-backend',
+      spacename: '涣美电商',
       script: 'C:/Program Files/Python312/python.exe',
       args: '-m uvicorn main:app --host 0.0.0.0 --port 8004',
       instances: 1,
